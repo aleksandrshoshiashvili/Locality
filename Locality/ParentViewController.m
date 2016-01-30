@@ -8,6 +8,7 @@
 
 #import "ParentViewController.h"
 #import "OneLineFilterView.h"
+#import "TwoLineFilterView.h"
 #import "Constants.h"
 
 @interface ParentViewController ()
@@ -22,6 +23,7 @@
     [super viewDidLoad];
     [self configurateNavigationController];
     [self configurateOneLineFilterView];
+    [self configurateTwoLineFilterView];
     
 }
 
@@ -38,6 +40,7 @@
     
     if (self.isFilterShown) {
         [self hideOneLineFilterView:NO];
+        [self hideTwoLineFilterView:NO];
     }
     
 }
@@ -60,6 +63,7 @@
     UIBarButtonItem *foodBarBtn = [[UIBarButtonItem alloc] initWithCustomView:foodBtn];
     
     [coctailBtn addTarget:self action:@selector(actionOpenCoctail:) forControlEvents:UIControlEventTouchUpInside];
+    [foodBtn addTarget:self action:@selector(actionOpenFood:) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.leftBarButtonItems = @[coctailBarBtn, foodBarBtn];
     
@@ -88,6 +92,16 @@
     self.oneLineFilterView.center = CGPointMake(self.view.center.x, -self.oneLineFilterView.frame.size.height / 2.0 - 20);
     [self.view addSubview:self.oneLineFilterView];
     self.oneLineFilterView.alpha = 0.0;
+    
+}
+
+- (void)configurateTwoLineFilterView {
+    
+    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, 242.0);
+    self.twoLineFilterView = [[TwoLineFilterView alloc] initWithFrame:frame withCount:12];
+    self.twoLineFilterView.center = CGPointMake(self.view.center.x, -self.twoLineFilterView.frame.size.height / 2.0 - 20);
+    [self.view addSubview:self.twoLineFilterView];
+    self.twoLineFilterView.alpha = 0.0;
     
 }
 
@@ -127,6 +141,40 @@
     }];
 }
 
+- (void)showTwoLineFilterView:(BOOL)animated {
+    
+    CGFloat animateDuration = 0.0;
+    
+    if (animated) {
+        animateDuration = 0.5;
+    }
+    
+    [UIView animateWithDuration:animateDuration animations:^{
+        self.navigationController.navigationBar.alpha = 0.0;
+        self.twoLineFilterView.alpha = 1.0;
+        self.twoLineFilterView.center = CGPointMake(self.view.center.x, self.twoLineFilterView.frame.size.height / 2.0 + 20);
+    } completion:^(BOOL finished) {
+        self.isFilterShown = YES;
+    }];
+}
+
+- (void)hideTwoLineFilterView:(BOOL)animated {
+    
+    CGFloat animateDuration = 0.0;
+    
+    if (animated) {
+        animateDuration = 0.5;
+    }
+    
+    [UIView animateWithDuration:animateDuration animations:^{
+        self.navigationController.navigationBar.alpha = 1.0;
+        self.twoLineFilterView.alpha = 0.0;
+        self.twoLineFilterView.center = CGPointMake(self.view.center.x, -self.oneLineFilterView.frame.size.height / 2.0 - 20 - 44);
+    } completion:^(BOOL finished) {
+        self.isFilterShown = NO;
+    }];
+}
+
 - (void)actionOpenCoctail:(id)sender {
     
     [self.oneLineFilterView changeFilterType:OneLineFilterTypeLounge];
@@ -142,6 +190,12 @@
     
 }
 
+- (void)actionOpenFood:(id)sender {
+    
+    [self showTwoLineFilterView:YES];
+    
+}
+
 #pragma mark - Filter Actions
 
 - (IBAction)actionChooseAll:(id)sender {
@@ -152,6 +206,7 @@
     NSLog(@"actionCancel");
     
     [self hideOneLineFilterView:YES];
+    [self hideTwoLineFilterView:YES];
 }
 
 - (IBAction)actionChooseFilterInOneLineView:(id)sender {

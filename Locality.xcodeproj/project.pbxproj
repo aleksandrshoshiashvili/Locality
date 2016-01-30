@@ -20,6 +20,10 @@
 		52681BC01C5AB97E00CC7093 /* MEExpandableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52681BBC1C5AB97E00CC7093 /* MEExpandableHeaderView.m */; };
 		52681BC11C5AB97E00CC7093 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 52681BBF1C5AB97E00CC7093 /* UIImage+ImageEffects.m */; };
 		5271536A1C359F6200FAF295 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527153691C359F6200FAF295 /* CoreLocation.framework */; };
+		5292D3B51C5C6ED300D50974 /* TwoLineFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5292D3B41C5C6ED300D50974 /* TwoLineFilterView.m */; };
+		5292D3B71C5C6EE300D50974 /* TwoLineFilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5292D3B61C5C6EE300D50974 /* TwoLineFilterView.xib */; };
+		5292D3BA1C5C790100D50974 /* FilterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5292D3B91C5C790100D50974 /* FilterCollectionViewCell.m */; };
+		5292D3BC1C5C7A8900D50974 /* FilterCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5292D3BB1C5C7A8900D50974 /* FilterCollectionViewCell.xib */; };
 		52A4F8121C34B66E006E6D7A /* arrow512.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A4F7F51C34B66E006E6D7A /* arrow512.png */; };
 		52A4F8131C34B66E006E6D7A /* back512.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A4F7F61C34B66E006E6D7A /* back512.png */; };
 		52A4F8141C34B66E006E6D7A /* beer512.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A4F7F71C34B66E006E6D7A /* beer512.png */; };
@@ -91,6 +95,12 @@
 		52681BBE1C5AB97E00CC7093 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		52681BBF1C5AB97E00CC7093 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		527153691C359F6200FAF295 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5292D3B31C5C6ED300D50974 /* TwoLineFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoLineFilterView.h; sourceTree = "<group>"; };
+		5292D3B41C5C6ED300D50974 /* TwoLineFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoLineFilterView.m; sourceTree = "<group>"; };
+		5292D3B61C5C6EE300D50974 /* TwoLineFilterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwoLineFilterView.xib; sourceTree = "<group>"; };
+		5292D3B81C5C790100D50974 /* FilterCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCollectionViewCell.h; sourceTree = "<group>"; };
+		5292D3B91C5C790100D50974 /* FilterCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCollectionViewCell.m; sourceTree = "<group>"; };
+		5292D3BB1C5C7A8900D50974 /* FilterCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterCollectionViewCell.xib; sourceTree = "<group>"; };
 		52A45EDC1C5C0D270018CA43 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		52A4F7F51C34B66E006E6D7A /* arrow512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow512.png; sourceTree = "<group>"; };
 		52A4F7F61C34B66E006E6D7A /* back512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back512.png; sourceTree = "<group>"; };
@@ -171,6 +181,9 @@
 				52EA713C1C57F3E50016AA4F /* OneLineFilterView.h */,
 				52EA713D1C57F3E50016AA4F /* OneLineFilterView.m */,
 				52EA713F1C57FDDF0016AA4F /* OneLineFilterView.xib */,
+				5292D3B31C5C6ED300D50974 /* TwoLineFilterView.h */,
+				5292D3B41C5C6ED300D50974 /* TwoLineFilterView.m */,
+				5292D3B61C5C6EE300D50974 /* TwoLineFilterView.xib */,
 				52AEF2E21C5C3DBE0035021A /* InfoWindowOfMarkerView.h */,
 				52AEF2E31C5C3DBE0035021A /* InfoWindowOfMarkerView.m */,
 				52AEF2E51C5C3DDA0035021A /* InfoWindowOfMarkerView.xib */,
@@ -267,6 +280,9 @@
 				52A4F8331C34C025006E6D7A /* SettingCityCell.m */,
 				52681B9A1C5A6E5300CC7093 /* PlaceCell.h */,
 				52681B9B1C5A6E5300CC7093 /* PlaceCell.m */,
+				5292D3B81C5C790100D50974 /* FilterCollectionViewCell.h */,
+				5292D3B91C5C790100D50974 /* FilterCollectionViewCell.m */,
+				5292D3BB1C5C7A8900D50974 /* FilterCollectionViewCell.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -425,12 +441,14 @@
 				52A4F8211C34B66E006E6D7A /* hookah512.png in Resources */,
 				52A4F82E1C34B66E006E6D7A /* wifi512.png in Resources */,
 				52AEF2E61C5C3DDB0035021A /* InfoWindowOfMarkerView.xib in Resources */,
+				5292D3BC1C5C7A8900D50974 /* FilterCollectionViewCell.xib in Resources */,
 				52A4F8161C34B66E006E6D7A /* cocktail_filled512.png in Resources */,
 				52A4F82B1C34B66E006E6D7A /* takeaway512.png in Resources */,
 				52A4F82A1C34B66E006E6D7A /* soups512.png in Resources */,
 				52A4F8231C34B66E006E6D7A /* krepkii512.png in Resources */,
 				52A4F8291C34B66E006E6D7A /* rolls512.png in Resources */,
 				52A4F81E1C34B66E006E6D7A /* f-food512.png in Resources */,
+				5292D3B71C5C6EE300D50974 /* TwoLineFilterView.xib in Resources */,
 				52A4F8181C34B66E006E6D7A /* coffeetogo512.png in Resources */,
 				52A4F82D1C34B66E006E6D7A /* vino512.png in Resources */,
 				604A28531C34B3DE0002FD70 /* Assets.xcassets in Resources */,
@@ -513,10 +531,12 @@
 			files = (
 				52A4F8371C34C2F3006E6D7A /* CityTableViewController.m in Sources */,
 				52AEF2E41C5C3DBE0035021A /* InfoWindowOfMarkerView.m in Sources */,
+				5292D3BA1C5C790100D50974 /* FilterCollectionViewCell.m in Sources */,
 				52681B9C1C5A6E5300CC7093 /* PlaceCell.m in Sources */,
 				52681BC11C5AB97E00CC7093 /* UIImage+ImageEffects.m in Sources */,
 				52681BA51C5AADB400CC7093 /* PlaceViewController.m in Sources */,
 				52EA713E1C57F3E50016AA4F /* OneLineFilterView.m in Sources */,
+				5292D3B51C5C6ED300D50974 /* TwoLineFilterView.m in Sources */,
 				52681BB91C5AB3A900CC7093 /* ASPhoto.m in Sources */,
 				604A284E1C34B3DE0002FD70 /* ListViewController.m in Sources */,
 				52681BB31C5AB35600CC7093 /* ASDiscount.m in Sources */,
