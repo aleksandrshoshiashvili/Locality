@@ -41,6 +41,8 @@
     [self initMap];
     [self initInfoWindowOfMarkerView];
     
+    [self.view insertSubview:(UIView *)self.twoLineFilterView aboveSubview:_mapView];
+    
 }
 
 - (void)didReceiveMemoryWarning {

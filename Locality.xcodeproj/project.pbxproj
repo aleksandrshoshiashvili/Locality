@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5238493B1C5E1B8200FB223A /* SquareCashStyleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5238493A1C5E1B8200FB223A /* SquareCashStyleBar.m */; };
 		525B89371C592DED0097E0BD /* ParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 525B89361C592DED0097E0BD /* ParentViewController.m */; };
 		52681B9C1C5A6E5300CC7093 /* PlaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52681B9B1C5A6E5300CC7093 /* PlaceCell.m */; };
 		52681B9E1C5A8D6700CC7093 /* testImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 52681B9D1C5A8D6700CC7093 /* testImage.jpg */; };
@@ -71,6 +72,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		523849391C5E1B8200FB223A /* SquareCashStyleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareCashStyleBar.h; sourceTree = "<group>"; };
+		5238493A1C5E1B8200FB223A /* SquareCashStyleBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareCashStyleBar.m; sourceTree = "<group>"; };
 		525B89351C592DED0097E0BD /* ParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentViewController.h; sourceTree = "<group>"; };
 		525B89361C592DED0097E0BD /* ParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentViewController.m; sourceTree = "<group>"; };
 		52681B9A1C5A6E5300CC7093 /* PlaceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceCell.h; sourceTree = "<group>"; };
@@ -187,6 +190,8 @@
 				52AEF2E21C5C3DBE0035021A /* InfoWindowOfMarkerView.h */,
 				52AEF2E31C5C3DBE0035021A /* InfoWindowOfMarkerView.m */,
 				52AEF2E51C5C3DDA0035021A /* InfoWindowOfMarkerView.xib */,
+				523849391C5E1B8200FB223A /* SquareCashStyleBar.h */,
+				5238493A1C5E1B8200FB223A /* SquareCashStyleBar.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -551,6 +556,7 @@
 				52A4F83B1C34D016006E6D7A /* MapViewController.m in Sources */,
 				52681BAA1C5AB25300CC7093 /* ASServerManager.m in Sources */,
 				525B89371C592DED0097E0BD /* ParentViewController.m in Sources */,
+				5238493B1C5E1B8200FB223A /* SquareCashStyleBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

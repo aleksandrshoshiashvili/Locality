@@ -20,14 +20,17 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - BLKFlexibleHeightBar (1.0.2)
   - GoogleMaps (1.11.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6)
+  - BLKFlexibleHeightBar
   - GoogleMaps (~> 1.11)
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  BLKFlexibleHeightBar: b27572a69633d8e33f1f2bbc486b04d8e86f742d
   GoogleMaps: c947160008f414c66707a5ea60f35e92055c7670
 
 COCOAPODS: 0.39.0

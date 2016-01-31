@@ -320,9 +320,34 @@
                     <view key="view" contentMode="scaleToFill" id="pHa-IB-RjJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vOF-lv-Qht">
+                                <rect key="frame" x="-4" y="0.0" width="328" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceInfoCell" id="IAE-VN-TXL">
+                                        <rect key="frame" x="0.0" y="92" width="328" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IAE-VN-TXL" id="mty-yU-Dxn">
+                                            <rect key="frame" x="0.0" y="0.0" width="328" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vOF-lv-Qht" firstAttribute="bottom" secondItem="pHa-IB-RjJ" secondAttribute="bottomMargin" id="7BQ-Sg-RU8"/>
+                            <constraint firstItem="vOF-lv-Qht" firstAttribute="leading" secondItem="pHa-IB-RjJ" secondAttribute="leadingMargin" constant="-20" id="Je3-mw-69S"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vOF-lv-Qht" secondAttribute="trailing" constant="-20" id="dSa-4D-m8A"/>
+                            <constraint firstItem="vOF-lv-Qht" firstAttribute="top" secondItem="pHa-IB-RjJ" secondAttribute="topMargin" id="pdu-Kd-5iw"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="tableView" destination="vOF-lv-Qht" id="7eR-Fp-0yA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vH2-sa-VLk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

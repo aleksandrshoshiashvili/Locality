@@ -6,5 +6,6 @@ platform :ios, '8.0'
 target 'Locality' do
 pod 'AFNetworking', '~> 2.6'
 pod 'GoogleMaps', '~> 1.11'
+pod 'BLKFlexibleHeightBar'
 end
 
