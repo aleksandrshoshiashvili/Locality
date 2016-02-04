@@ -32,12 +32,6 @@
         
         self.countOfCells = count;
         
-//        [self.collectionView registerClass:[FilterCollectionViewCell class] forCellWithReuseIdentifier:@"FilterCell"];
-//        [self.collectionView registerNib:[[[NSBundle mainBundle]
-//                                           loadNibNamed:NSStringFromClass([FilterCollectionViewCell class])
-//                                                                    owner:self
-//                                                                  options:nil] objectAtIndex:0] forCellWithReuseIdentifier:@"FilterCell"];
-        
         [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([FilterCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:@"FilterCell"];
         
         self.collectionView.delegate = self;
@@ -84,6 +78,10 @@
     }
 }
 
+- (void)actionTapOnFilterButton:(UIButton *)sender {
+    [self.delegate actionFilterButtonPressed:sender];
+}
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -100,7 +98,9 @@
     }
     
     cell.backgroundColor = [UIColor clearColor];
-    cell.buttonFilter.tag = indexPath.row;
+    cell.buttonFilter.tag = indexPath.row + 1;
+    cell.buttonFilter.userInteractionEnabled = YES;
+    [cell.buttonFilter addTarget:self action:@selector(actionTapOnFilterButton:) forControlEvents:UIControlEventTouchUpInside];
     
     self.pageControl.currentPage = (NSInteger)(self.collectionView.contentOffset.x / self.collectionView.frame.size.width + 0.5);
     
@@ -136,38 +136,38 @@
             break;
         }
         case 6: {
-            cell.labelFilterName.text = @"роллы";
+            cell.labelFilterName.text = @"вегетарианство";
             [cell.buttonFilter setImage:[UIImage imageNamed:@"rolls512.png"] forState:UIControlStateNormal];
             break;
         }
         case 7: {
-            cell.labelFilterName.text = @"роллы";
+            cell.labelFilterName.text = @"экзотика";
             [cell.buttonFilter setImage:[UIImage imageNamed:@"rolls512.png"] forState:UIControlStateNormal];
             break;
         }
         case 8: {
-            cell.labelFilterName.text = @"роллы";
+            cell.labelFilterName.text = @"десерты";
             [cell.buttonFilter setImage:[UIImage imageNamed:@"rolls512.png"] forState:UIControlStateNormal];
             break;
         }
         case 9: {
-            cell.labelFilterName.text = @"роллы";
+            cell.labelFilterName.text = @"выпечка";
             [cell.buttonFilter setImage:[UIImage imageNamed:@"rolls512.png"] forState:UIControlStateNormal];
             break;
         }
         case 10: {
-            cell.labelFilterName.text = @"роллы";
+            cell.labelFilterName.text = @"???";
             [cell.buttonFilter setImage:[UIImage imageNamed:@"rolls512.png"] forState:UIControlStateNormal];
             break;
         }
         case 11: {
-            cell.labelFilterName.text = @"роллы";
+            cell.labelFilterName.text = @"???";
             [cell.buttonFilter setImage:[UIImage imageNamed:@"rolls512.png"] forState:UIControlStateNormal];
             break;
         }
             
         default:
-            cell.labelFilterName.text = @"роллы";
+            cell.labelFilterName.text = @"???";
             [cell.buttonFilter setImage:[UIImage imageNamed:@"rolls512.png"] forState:UIControlStateNormal];
             break;
     }

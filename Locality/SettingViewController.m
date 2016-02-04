@@ -24,6 +24,7 @@
     [super viewWillAppear:animated];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = item;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
 
 - (void)viewDidLoad {

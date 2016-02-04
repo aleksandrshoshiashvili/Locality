@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "ParentViewController.h"
 
+typedef enum {
+    PlaceStyleTypeDrinks,
+    PlaceStyleTypeLounge,
+    PlaceStyleTypeFood
+} PlaceStyleType;
+
 @interface MapViewController : ParentViewController
 
 - (void)setCoordinate:(double)latitude and:(double)longtitude;

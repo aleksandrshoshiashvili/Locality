@@ -25,6 +25,7 @@
 		5292D3B71C5C6EE300D50974 /* TwoLineFilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5292D3B61C5C6EE300D50974 /* TwoLineFilterView.xib */; };
 		5292D3BA1C5C790100D50974 /* FilterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5292D3B91C5C790100D50974 /* FilterCollectionViewCell.m */; };
 		5292D3BC1C5C7A8900D50974 /* FilterCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5292D3BB1C5C7A8900D50974 /* FilterCollectionViewCell.xib */; };
+		52A0CAF41C63FA0100CEA4F2 /* PlaceAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A0CAF31C63FA0100CEA4F2 /* PlaceAddressCell.m */; };
 		52A4F8121C34B66E006E6D7A /* arrow512.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A4F7F51C34B66E006E6D7A /* arrow512.png */; };
 		52A4F8131C34B66E006E6D7A /* back512.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A4F7F61C34B66E006E6D7A /* back512.png */; };
 		52A4F8141C34B66E006E6D7A /* beer512.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A4F7F71C34B66E006E6D7A /* beer512.png */; };
@@ -104,6 +105,8 @@
 		5292D3B81C5C790100D50974 /* FilterCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCollectionViewCell.h; sourceTree = "<group>"; };
 		5292D3B91C5C790100D50974 /* FilterCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCollectionViewCell.m; sourceTree = "<group>"; };
 		5292D3BB1C5C7A8900D50974 /* FilterCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterCollectionViewCell.xib; sourceTree = "<group>"; };
+		52A0CAF21C63FA0100CEA4F2 /* PlaceAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceAddressCell.h; sourceTree = "<group>"; };
+		52A0CAF31C63FA0100CEA4F2 /* PlaceAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceAddressCell.m; sourceTree = "<group>"; };
 		52A45EDC1C5C0D270018CA43 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		52A4F7F51C34B66E006E6D7A /* arrow512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow512.png; sourceTree = "<group>"; };
 		52A4F7F61C34B66E006E6D7A /* back512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back512.png; sourceTree = "<group>"; };
@@ -278,18 +281,20 @@
 			path = icons;
 			sourceTree = "<group>";
 		};
-		52A4F8381C34C2FB006E6D7A /* Cell */ = {
+		52A4F8381C34C2FB006E6D7A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				52A4F8321C34C025006E6D7A /* SettingCityCell.h */,
 				52A4F8331C34C025006E6D7A /* SettingCityCell.m */,
 				52681B9A1C5A6E5300CC7093 /* PlaceCell.h */,
 				52681B9B1C5A6E5300CC7093 /* PlaceCell.m */,
+				52A0CAF21C63FA0100CEA4F2 /* PlaceAddressCell.h */,
+				52A0CAF31C63FA0100CEA4F2 /* PlaceAddressCell.m */,
 				5292D3B81C5C790100D50974 /* FilterCollectionViewCell.h */,
 				5292D3B91C5C790100D50974 /* FilterCollectionViewCell.m */,
 				5292D3BB1C5C7A8900D50974 /* FilterCollectionViewCell.xib */,
 			);
-			name = Cell;
+			name = Cells;
 			sourceTree = "<group>";
 		};
 		52A4F83C1C34D025006E6D7A /* Setting VC */ = {
@@ -341,7 +346,7 @@
 				52681BAD1C5AB27500CC7093 /* Models */,
 				525B89341C592DB30097E0BD /* Views */,
 				52A4F83C1C34D025006E6D7A /* Setting VC */,
-				52A4F8381C34C2FB006E6D7A /* Cell */,
+				52A4F8381C34C2FB006E6D7A /* Cells */,
 				604A284F1C34B3DE0002FD70 /* Main.storyboard */,
 				604A28521C34B3DE0002FD70 /* Assets.xcassets */,
 				604A28541C34B3DE0002FD70 /* LaunchScreen.storyboard */,
@@ -534,6 +539,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52A0CAF41C63FA0100CEA4F2 /* PlaceAddressCell.m in Sources */,
 				52A4F8371C34C2F3006E6D7A /* CityTableViewController.m in Sources */,
 				52AEF2E41C5C3DBE0035021A /* InfoWindowOfMarkerView.m in Sources */,
 				5292D3BA1C5C790100D50974 /* FilterCollectionViewCell.m in Sources */,

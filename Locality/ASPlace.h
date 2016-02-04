@@ -17,8 +17,8 @@
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *descr;
 @property (strong, nonatomic) NSString *address;
-@property (strong, nonatomic) NSString *latitude;
-@property (strong, nonatomic) NSString *longtitude;
+@property (assign, nonatomic) double latitude;
+@property (assign, nonatomic) double longtitude;
 @property (strong, nonatomic) NSString *cityId;
 @property (strong, nonatomic) NSString *workhours;
 @property (assign, nonatomic) BOOL checked;

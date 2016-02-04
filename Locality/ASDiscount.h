@@ -8,6 +8,12 @@
 
 #import "ASServerManager.h"
 
+typedef enum {
+    ASDiscountDrinks,
+    ASDiscountLounge,
+    ASDiscountFood
+} ASDiscountType;
+
 @interface ASDiscount : ASServerManager
 
 @property (strong, nonatomic) NSString *title;

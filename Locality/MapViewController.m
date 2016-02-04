@@ -14,7 +14,7 @@
 
 #import "InfoWindowOfMarkerView.h"
 
-#import "Constants.h"
+#import "ASPlace.h"
 
 @interface MapViewController () <GMSMapViewDelegate>
 
@@ -23,6 +23,7 @@
 @property (assign, nonatomic) BOOL firstLocationUpdate;
 @property (strong, nonatomic) InfoWindowOfMarkerView *infoWindow;
 @property (assign, nonatomic) BOOL isInfoWindowShown;
+@property (strong, nonatomic) UIView *emptyView;
 
 @end
 
@@ -41,6 +42,7 @@
     [self initMap];
     [self initInfoWindowOfMarkerView];
     
+    _viewForMap.backgroundColor = appMainColor;
     [self.view insertSubview:(UIView *)self.twoLineFilterView aboveSubview:_mapView];
     
 }
@@ -64,6 +66,7 @@
                                                                  zoom:35];
     
     CGRect mapFrame = self.view.frame;
+    mapFrame.origin.y = statusBarHeight;
 //    CGFloat navBarHeight = 64.0;
     mapFrame.size.height = mapFrame.size.height - tabBarHeight;// - navBarHeight;
 //    mapFrame.origin.y = navBarHeight;
@@ -87,8 +90,15 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         _mapView.myLocationEnabled = YES;
     });
-
-    [self setMarkerWithPosition:_mapView.myLocation.coordinate];
+    
+    for (int i = 0; i < 10; i++) {
+        
+        double lat = (double)arc4random_uniform(1080) / 3.0;
+        double lon = (double)arc4random_uniform(1080) / 3.0;
+        
+        [self setMarkerWithPosition:CLLocationCoordinate2DMake(lat, lon)];
+        
+    }
     
 }
 
@@ -115,6 +125,40 @@
 //    marker.snippet = @"The best place on earth.";
 //    marker.title = @"Somewhere";
 //    marker.userData !!!
+    
+}
+
+- (void)setMarkerWithPlace:(ASPlace *)place style:(PlaceStyleType)styleType {
+    
+    CLLocationCoordinate2D position = CLLocationCoordinate2DMake(place.latitude, place.longtitude);
+    
+    GMSMarker *marker = [GMSMarker markerWithPosition:position];
+    
+    marker.map = _mapView;
+    marker.appearAnimation = kGMSMarkerAnimationPop;
+    
+    UIImage *markerIcon = nil;
+    
+    switch (styleType) {
+        case 0: {
+            markerIcon = [UIImage imageNamed:@"location512.png"];
+            break;
+        }
+        case 1: {
+            break;
+        }
+        case 2: {
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+    marker.icon = markerIcon;
+    marker.opacity = 0.75;
+    marker.flat = YES;
+    marker.userData = place;
     
 }
 
@@ -146,6 +190,16 @@
         animateDuration = 0.5;
     }
     
+    _emptyView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height - _infoWindow.frame.size.height)];
+    
+    [self.view addSubview:_emptyView];
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideInfoWindow)];
+    UISwipeGestureRecognizer *swipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(hideInfoWindow)];
+    swipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight | UISwipeGestureRecognizerDirectionLeft | UISwipeGestureRecognizerDirectionDown | UISwipeGestureRecognizerDirectionUp;
+    [_emptyView addGestureRecognizer:tapGestureRecognizer];
+    [_emptyView addGestureRecognizer:swipeGestureRecognizer];
+    
     [UIView animateWithDuration:animateDuration
                           delay:0
                         options:UIViewAnimationOptionCurveEaseOut
@@ -157,12 +211,18 @@
     
 }
 
+- (void)hideInfoWindow {
+    [self hideInfoWindow:YES];
+}
+
 - (void)hideInfoWindow:(BOOL)animated {
     CGFloat animateDuration = 0.0;
     
     if (animated) {
         animateDuration = 0.5;
     }
+    
+    [_emptyView removeFromSuperview];
     
     [UIView animateWithDuration:animateDuration animations:^{
         _infoWindow.center = CGPointMake(self.view.center.x, self.view.frame.size.height + tabBarHeight + _infoWindow.frame.size.height / 2.0);
@@ -177,17 +237,15 @@
 - (void)actionInfoWindowDidSelected {
     
     PlaceViewController *vc = [[self storyboard] instantiateViewControllerWithIdentifier:@"PlaceViewController"];
-    [self.navigationController presentViewController:vc animated:YES completion:^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [vc dismissViewControllerAnimated:YES completion:nil];
-        });
-    }];
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 
 #pragma mark - GMSMapViewDelegate
 
 - (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
+    
+    [self setCoordinate:marker.position.latitude and:marker.position.longitude];
     
     [self configurateInfoWindowWithMarker:marker];
     [self showInfoWindow:YES];
@@ -200,6 +258,14 @@ didChangeCameraPosition:(GMSCameraPosition *)position {
     if (self.isInfoWindowShown) {
         [self hideInfoWindow:YES];
     }
+}
+
+#pragma mark -
+
+- (void)place:(ASPlace *)place {
+    
+    
+    
 }
 
 #pragma mark - KVO updates

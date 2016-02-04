@@ -11,4 +11,9 @@
 
 @interface SquareCashStyleBar : BLKFlexibleHeightBar
 
+- (id)initWithFrame:(CGRect)frame
+          placeName:(NSString *)placeName
+           features:(NSArray *)featuresImagesArray
+           workhour:(NSString *)workhourText;
+
 @end

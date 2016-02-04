@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TwoLineFilterViewDelegate;
+
 @interface TwoLineFilterView : UIView
 
 @property (weak, nonatomic) IBOutlet UILabel *labelDelivery;
@@ -18,6 +20,14 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
+@property (nonatomic, assign) id <TwoLineFilterViewDelegate> delegate;
+
 - (id)initWithFrame:(CGRect)frame withCount:(NSInteger) count;
+
+@end
+
+@protocol TwoLineFilterViewDelegate
+@required
+- (void)actionFilterButtonPressed:(UIButton *)sender;
 
 @end

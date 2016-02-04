@@ -9,6 +9,8 @@
 #import "PlaceViewController.h"
 #import "MEExpandableHeaderView.h"
 
+#import "PlaceAddressCell.h"
+
 #import "BLKFlexibleHeightBar.h"
 #import "BLKDelegateSplitter.h"
 #import "SquareCashStyleBehaviorDefiner.h"
@@ -41,11 +43,13 @@ typedef enum {
     
 //    [self setupHeaderView];
     
-    // Ломает навигейш у родителя
-    self.navigationController.navigationBar.hidden = YES;
-    
     // Setup the bar
-    self.myCustomBar = [[SquareCashStyleBar alloc] initWithFrame:CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.frame), 100.0)];
+//    self.myCustomBar = [[SquareCashStyleBar alloc] initWithFrame:CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.frame), 100.0)];
+    
+    self.myCustomBar = [[SquareCashStyleBar alloc] initWithFrame:CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.frame), 100.0)
+                                                       placeName:@"Dobro Bar"
+                                                        features:[NSArray arrayWithObjects:[UIImage imageNamed:@"wifi512.png"], [UIImage imageNamed:@"debit512.png"], nil]
+                                                        workhour:@"Работает до 23:30"];
     
     SquareCashStyleBehaviorDefiner *behaviorDefiner = [[SquareCashStyleBehaviorDefiner alloc] init];
     [behaviorDefiner addSnappingPositionProgress:0.0 forProgressRangeStart:0.0 end:0.5];
@@ -53,7 +57,6 @@ typedef enum {
     behaviorDefiner.snappingEnabled = YES;
     behaviorDefiner.elasticMaximumHeightAtTop = NO; // Когда тянешь вниз
     self.myCustomBar.behaviorDefiner = behaviorDefiner;
-    
     // Configure a separate UITableViewDelegate and UIScrollViewDelegate (optional)
     self.delegateSplitter = [[BLKDelegateSplitter alloc] initWithFirstDelegate:behaviorDefiner secondDelegate:self];
     self.tableView.delegate = (id<UITableViewDelegate>)self.delegateSplitter;
@@ -62,12 +65,13 @@ typedef enum {
     [self.view addSubview:self.myCustomBar];
     
     // Setup the table view
-    self.tableView.contentInset = UIEdgeInsetsMake(self.myCustomBar.maximumBarHeight - 15.0, 0.0, 0.0, 0.0);
-    
+//    self.tableView.contentOffset = CGPointMake(0.0, self.myCustomBar.maximumBarHeight);
+    self.tableView.contentInset = UIEdgeInsetsMake(self.myCustomBar.maximumBarHeight - 13.0, 0.0, 0.0, 0.0);
+    self.tableView.backgroundColor = appMainColor;
     
     // Add close button - it's pinned to the top right corner, so it doesn't need to respond to bar height changes
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    closeButton.frame = CGRectMake(0.0 + 10.0, 25.0, 30.0, 30.0);
+    closeButton.frame = CGRectMake(0.0 + 8.0, 22.5, 30.0, 30.0);
     closeButton.tintColor = [UIColor whiteColor];
     [closeButton setImage:[UIImage imageNamed:@"back512.png"] forState:UIControlStateNormal];
     [closeButton addTarget:self action:@selector(closeViewController:) forControlEvents:UIControlEventTouchUpInside];
@@ -75,10 +79,16 @@ typedef enum {
     
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-    self.navigationController.navigationBar.hidden = NO;
+    self.navigationController.navigationBarHidden = YES;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -101,36 +111,61 @@ typedef enum {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *placeInfoCellIdentifier = @"PlaceInfoCell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:placeInfoCellIdentifier];
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:placeInfoCellIdentifier];
-    }
-    
+    static NSString *placeAddressCellIdentifier = @"PlaceAddressCell";
     
     switch (indexPath.row) {
         case PlaceCellTypeAddress: {
-            cell.textLabel.text = @"Страстной б-р, 4, стр. 3";
-            cell.detailTextLabel.text = @"1.5 км";
-            cell.backgroundColor = [UIColor grayColor];
+            
+            PlaceAddressCell *placeAddressCell = (PlaceAddressCell *)[tableView dequeueReusableCellWithIdentifier:placeAddressCellIdentifier];
+            
+            if (!placeAddressCell) {
+                placeAddressCell = (PlaceAddressCell *)[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:placeAddressCellIdentifier];
+            }
+            
+            placeAddressCell.labelAddress.text = @"Страстной б-р, 4, стр. 2";
+            placeAddressCell.labelDistance.text = @"1.7 км";
+            placeAddressCell.backgroundColor = [UIColor grayColor];
+            
+            return placeAddressCell;
+            
             break;
         }
             
         default: {
-            cell.textLabel.text = [NSString stringWithFormat:@"Row %ld", (long)indexPath.row + 1];
-            cell.backgroundColor = [UIColor whiteColor];
+            
+            UITableViewCell *placeInfoCell = [tableView dequeueReusableCellWithIdentifier:placeInfoCellIdentifier];
+            
+            if (!placeInfoCell) {
+                placeInfoCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:placeInfoCellIdentifier];
+            }
+            
+            placeInfoCell.textLabel.text = [NSString stringWithFormat:@"Row %ld", (long)indexPath.row + 1];
+            placeInfoCell.backgroundColor = [UIColor whiteColor];
+            
+            return placeInfoCell;
+            
             break;
         }
     }
     
-    return cell;
+    return nil;
     
 }
 
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    switch (indexPath.row) {
+        case 0:
+            return 62.0;
+            break;
+            
+        default:
+            return 44.0;
+            break;
+    }
+    
     return 44.0;
 }
 
@@ -170,12 +205,10 @@ typedef enum {
     return label;
 }
 
-#pragma mark - UIScrollViewDelegate
-
 #pragma mark - System
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
+//- (UIStatusBarStyle)preferredStatusBarStyle {
+//    return UIStatusBarStyleLightContent;
+//}
 
 @end

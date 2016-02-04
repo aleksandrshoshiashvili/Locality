@@ -9,9 +9,8 @@
 #import "ParentViewController.h"
 #import "OneLineFilterView.h"
 #import "TwoLineFilterView.h"
-#import "Constants.h"
 
-@interface ParentViewController ()
+@interface ParentViewController () <TwoLineFilterViewDelegate>
 
 @end
 
@@ -102,6 +101,8 @@
     self.twoLineFilterView.center = CGPointMake(self.view.center.x, -self.twoLineFilterView.frame.size.height / 2.0 - 20);
     [self.view addSubview:self.twoLineFilterView];
     self.twoLineFilterView.alpha = 0.0;
+    
+    self.twoLineFilterView.delegate = self;
     
 }
 
@@ -210,23 +211,68 @@
 }
 
 - (IBAction)actionChooseFilterInOneLineView:(id)sender {
-    NSLog(@"actionChooseFilterInOneLineView");
+    NSLog(@"actionChooseFilterInOneLineView: %ld", (long)[sender tag]);
     
     switch ([sender tag]) {
         case 1: {
-            NSLog(@"1");
             break;
         }
         case 2: {
-            NSLog(@"2");
             break;
         }
         case 3: {
-            NSLog(@"3");
             break;
         }
         case 4: {
-            NSLog(@"4");
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+}
+
+#pragma mark - TwoLineFilterViewDelegate
+
+- (void)actionFilterButtonPressed:(UIButton *)sender {
+    NSLog(@"actionFilterButtonPressed: %ld", (long)sender.tag);
+    
+    switch ([sender tag]) {
+        case 1: {
+            break;
+        }
+        case 2: {
+            break;
+        }
+        case 3: {
+            break;
+        }
+        case 4: {
+            break;
+        }
+        case 5: {
+            break;
+        }
+        case 6: {
+            break;
+        }
+        case 7: {
+            break;
+        }
+        case 8: {
+            break;
+        }
+        case 9: {
+            break;
+        }
+        case 10: {
+            break;
+        }
+        case 11: {
+            break;
+        }
+        case 12: {
             break;
         }
             

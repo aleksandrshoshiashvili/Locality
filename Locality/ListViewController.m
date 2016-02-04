@@ -9,11 +9,13 @@
 #import "ListViewController.h"
 #import "PlaceViewController.h"
 #import "PlaceCell.h"
+#import "ASPlace.h"
 
 @interface ListViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-//AIzaSyA_brn-WOjxx5j0oAToHeyf3y9kYnn2B_Q
+@property (strong, nonatomic) NSArray *placesArray;
+
 @end
 
 @implementation ListViewController
@@ -24,9 +26,11 @@
     
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.backgroundColor = appMainColor;
+    
+    [self getPlaces];
     
 }
-
 
 
 - (void)didReceiveMemoryWarning {
@@ -34,10 +38,29 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Get Places
+
+- (void)getPlaces {
+    
+    NSMutableArray *placesMutableArray = [NSMutableArray array];
+    
+    for (int i = 1; i <= 30; i++) {
+        
+        ASPlace *place = [[ASPlace alloc] init];
+        place.title = [NSString stringWithFormat:@"Place Name #%d", i];
+        place.address = [NSString stringWithFormat:@"Невский проспект, %d", i];
+        
+        [placesMutableArray addObject:place];
+    }
+    
+    self.placesArray = [NSArray arrayWithArray:placesMutableArray];
+    
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return 30;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -49,17 +72,18 @@
         cell = (PlaceCell *)[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:placeCellIdentifier];
     }
     
+    ASPlace *place = [self.placesArray objectAtIndex:indexPath.row];
+    
     cell.colorDiscount = [UIColor colorWithRed:(CGFloat)(arc4random_uniform(255))/255.0 green:(CGFloat)(arc4random_uniform(255))/255.0 blue:(CGFloat)(arc4random_uniform(255))/255.0 alpha:1.0];
     
     cell.labelDicount.textColor = cell.colorDiscount;
     
-    cell.labelPlaceName.text = @"Place Name";
+    cell.labelPlaceName.text =place.title;
     cell.labelDicount.text = @"Dicount with very large name";
-    cell.labelAddress.text = @"Невский проспект, 43 к.1";
+    cell.labelAddress.text = place.address;
     cell.labelDistance.text = @"1.12 км";
     cell.imageViewDiscountDot.image = [UIImage imageNamed:@"cocktail_filled512.png"];
     cell.imageViewPlace.image = [UIImage imageNamed:@"testImage.jpg"];
-
     
     return cell;
 }
