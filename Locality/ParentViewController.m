@@ -86,9 +86,9 @@
 
 - (void)configurateOneLineFilterView {
     
-    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, 154.0);
+    CGRect frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 154.0);
     self.oneLineFilterView = [[OneLineFilterView alloc] initWithFrame:frame type:OneLineFilterTypeLounge];
-    self.oneLineFilterView.center = CGPointMake(self.view.center.x, -self.oneLineFilterView.frame.size.height / 2.0 - 20);
+    self.oneLineFilterView.center = CGPointMake(self.view.center.x, -CGRectGetHeight(self.oneLineFilterView.frame) / 2.0 - 20);
     [self.view addSubview:self.oneLineFilterView];
     self.oneLineFilterView.alpha = 0.0;
     
@@ -98,7 +98,7 @@
     
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, 242.0);
     self.twoLineFilterView = [[TwoLineFilterView alloc] initWithFrame:frame withCount:12];
-    self.twoLineFilterView.center = CGPointMake(self.view.center.x, -self.twoLineFilterView.frame.size.height / 2.0 - 20);
+    self.twoLineFilterView.center = CGPointMake(self.view.center.x, -CGRectGetHeight(self.twoLineFilterView.frame) / 2.0 - 20);
     [self.view addSubview:self.twoLineFilterView];
     self.twoLineFilterView.alpha = 0.0;
     
@@ -119,7 +119,7 @@
     [UIView animateWithDuration:animateDuration animations:^{
         self.navigationController.navigationBar.alpha = 0.0;
         self.oneLineFilterView.alpha = 1.0;
-        self.oneLineFilterView.center = CGPointMake(self.view.center.x, self.oneLineFilterView.frame.size.height / 2.0 + 20);
+        self.oneLineFilterView.center = CGPointMake(self.view.center.x, CGRectGetHeight(self.oneLineFilterView.frame) / 2.0 + 20);
     } completion:^(BOOL finished) {
         self.isFilterShown = YES;
     }];
@@ -136,7 +136,7 @@
     [UIView animateWithDuration:animateDuration animations:^{
         self.navigationController.navigationBar.alpha = 1.0;
         self.oneLineFilterView.alpha = 0.0;
-        self.oneLineFilterView.center = CGPointMake(self.view.center.x, -self.oneLineFilterView.frame.size.height / 2.0 - 20 - 44);
+        self.oneLineFilterView.center = CGPointMake(self.view.center.x, -CGRectGetHeight(self.oneLineFilterView.frame) / 2.0 - 20 - 44);
     } completion:^(BOOL finished) {
         self.isFilterShown = NO;
     }];
@@ -153,7 +153,7 @@
     [UIView animateWithDuration:animateDuration animations:^{
         self.navigationController.navigationBar.alpha = 0.0;
         self.twoLineFilterView.alpha = 1.0;
-        self.twoLineFilterView.center = CGPointMake(self.view.center.x, self.twoLineFilterView.frame.size.height / 2.0 + 20);
+        self.twoLineFilterView.center = CGPointMake(self.view.center.x, CGRectGetHeight(self.twoLineFilterView.frame) / 2.0 + 20);
     } completion:^(BOOL finished) {
         self.isFilterShown = YES;
     }];
@@ -170,7 +170,8 @@
     [UIView animateWithDuration:animateDuration animations:^{
         self.navigationController.navigationBar.alpha = 1.0;
         self.twoLineFilterView.alpha = 0.0;
-        self.twoLineFilterView.center = CGPointMake(self.view.center.x, -self.oneLineFilterView.frame.size.height / 2.0 - 20 - 44);
+        // было oneLineView
+        self.twoLineFilterView.center = CGPointMake(self.view.center.x, -CGRectGetHeight(self.twoLineFilterView.frame) / 2.0 - 20 - 44);
     } completion:^(BOOL finished) {
         self.isFilterShown = NO;
     }];
