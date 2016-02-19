@@ -23,6 +23,10 @@
     [self configurateNavigationController];
     [self configurateOneLineFilterView];
     [self configurateTwoLineFilterView];
+  
+    UIView *bottomStatusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, statusBarHeight)];
+    bottomStatusBarView.backgroundColor = appMainColor;
+    [self.view bringSubviewToFront:bottomStatusBarView];
     
 }
 

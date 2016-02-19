@@ -41,7 +41,7 @@
     // Do any additional setup after loading the view.
     [self initMap];
     [self initInfoWindowOfMarkerView];
-    
+  
     _viewForMap.backgroundColor = appMainColor;
     [self.view insertSubview:(UIView *)self.twoLineFilterView aboveSubview:_mapView];
     
@@ -67,10 +67,9 @@
     
     CGRect mapFrame = self.view.frame;
     mapFrame.origin.y = statusBarHeight;
-//    CGFloat navBarHeight = 64.0;
-    mapFrame.size.height = mapFrame.size.height - tabBarHeight;// - navBarHeight;
-//    mapFrame.origin.y = navBarHeight;
-    
+    mapFrame.size.height = mapFrame.size.height - tabBarHeight - navBarHeight;
+    mapFrame.origin.y = navBarHeight;
+  
     _mapView = [GMSMapView mapWithFrame:mapFrame camera:camera];
 //    _mapView.settings.compassButton = YES;
     _mapView.settings.myLocationButton = YES;
