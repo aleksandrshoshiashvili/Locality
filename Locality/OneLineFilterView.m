@@ -2,7 +2,7 @@
 //  OneLineFilterView.m
 //  Locality
 //
-//  Created by MacBookPro on 26.01.16.
+//  Created by Aleksandr Shoshiashvili on 26.01.16.
 //  Copyright © 2016 OneMoreApp. All rights reserved.
 //
 

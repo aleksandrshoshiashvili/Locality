@@ -2,13 +2,13 @@
 //  ASPhoto.h
 //  Locality
 //
-//  Created by MacBookPro on 28.01.16.
+//  Created by Aleksandr Shoshiashvili on 28.01.16.
 //  Copyright © 2016 OneMoreApp. All rights reserved.
 //
 
-#import "ASServerManager.h"
+#import "ASServerObject.h"
 
-@interface ASPhoto : ASServerManager
+@interface ASPhoto : ASServerObject
 
 @property (strong, nonatomic) NSString *photoURL;
 

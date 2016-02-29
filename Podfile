@@ -7,5 +7,6 @@ target 'Locality' do
 pod 'AFNetworking', '~> 2.6'
 pod 'GoogleMaps', '~> 1.11'
 pod 'BLKFlexibleHeightBar'
+pod 'SDWebImage'
 end
 

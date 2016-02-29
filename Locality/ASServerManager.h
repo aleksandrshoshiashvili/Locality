@@ -8,16 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+@class ASPlace;
+
 @interface ASServerManager : NSObject
 
 + (ASServerManager *) sharedManager;
 
 #pragma mark - Place
 
-- (void) getPlace:(NSString *) placeID
-        onSuccess:(void(^)(NSArray *array)) success
-        onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure;
+- (void) getlistByLatitude:(double)lat
+                longtitude:(double)lon
+                 onSuccess:(void(^)(NSArray *array)) success
+                 onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure;
 
-
+- (void) getlistByPlaceId:(NSString *)placeId
+                onSuccess:(void(^)(ASPlace *place)) success
+                onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure;
 
 @end

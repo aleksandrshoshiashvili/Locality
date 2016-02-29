@@ -2,11 +2,13 @@
 //  PlaceCell.h
 //  Locality
 //
-//  Created by MacBookPro on 28.01.16.
+//  Created by Aleksandr Shoshiashvili on 28.01.16.
 //  Copyright © 2016 OneMoreApp. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+
+@class ASPlace;
 
 @interface PlaceCell : UITableViewCell
 
@@ -18,5 +20,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *labelDistance;
 
 @property (strong, nonatomic) UIColor *colorDiscount;
+
+- (void)configurateCellWithPlace:(ASPlace *)place;
 
 @end

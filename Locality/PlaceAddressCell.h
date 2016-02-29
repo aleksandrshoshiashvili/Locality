@@ -2,7 +2,7 @@
 //  PlaceAddressCell.h
 //  Locality
 //
-//  Created by MacBookPro on 05.02.16.
+//  Created by Aleksandr Shoshiashvili on 05.02.16.
 //  Copyright © 2016 OneMoreApp. All rights reserved.
 //
 
