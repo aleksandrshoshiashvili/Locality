@@ -25,4 +25,10 @@
                 onSuccess:(void(^)(ASPlace *place)) success
                 onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure;
 
+- (void) getlistByLatitude:(double)lat
+                longtitude:(double)lon
+               subcategory:(NSString *)subcategory
+                 onSuccess:(void(^)(NSArray *array)) success
+                 onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure;
+
 @end

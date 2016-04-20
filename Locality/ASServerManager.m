@@ -155,4 +155,64 @@
   
 }
 
+#pragma mark - Category
+
+- (void) getlistByLatitude:(double)lat
+                longtitude:(double)lon
+               subcategory:(NSString *)subcategory
+                 onSuccess:(void(^)(NSArray *array)) success
+                 onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure {
+  
+  NSDictionary *params =
+  [NSDictionary dictionaryWithObjectsAndKeys:
+   @(lat),        @"lat",
+   @(lon),        @"long",
+   [NSString stringWithFormat:@"(%@)", subcategory],   @"subcat", nil];
+  
+  [self.requestOperationManager
+   GET:@"getlist"
+   parameters:params
+   success:^(AFHTTPRequestOperation *operation, id responseObject) {
+     
+     NSLog(@"JSON: %@", responseObject);
+     
+     NSDictionary *responseDict = (NSDictionary *)responseObject;
+     
+     NSArray *dictsArray  = responseDict.allValues;
+     
+     NSMutableArray *resultPlacesArray = [NSMutableArray array];
+     
+     for (NSDictionary *placeDict in dictsArray) {
+       
+       NSLog(@"placeDict = %@", placeDict);
+       
+       ASPlace *place = [[ASPlace alloc] initWithServerResponse:placeDict];
+       [resultPlacesArray addObject:place];
+       
+     }
+     
+     if ([resultPlacesArray count] > 0) {
+       if (success) {
+         success(resultPlacesArray);
+       }
+     } else {
+       if (failure) {
+         failure(nil, operation.response.statusCode);
+       }
+     }
+     
+   }
+   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+     NSLog(@"Error: %@", error);
+     
+     if (failure) {
+       failure(error, operation.response.statusCode);
+     }
+     
+   }];
+  
+}
+
+//http://discountspanel.ru/api/getlist?lat=55.751244&long=37.618423&subcat=(1,2)
+
 @end

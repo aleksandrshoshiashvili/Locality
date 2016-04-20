@@ -675,7 +675,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Locality/Prefix.pch";
 				INFOPLIST_FILE = Locality/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -726,7 +726,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Locality/Prefix.pch";
 				INFOPLIST_FILE = Locality/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

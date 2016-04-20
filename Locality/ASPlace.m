@@ -26,6 +26,14 @@
     self.title = [responseObject objectForKey:@"title"];
     self.uid = [responseObject objectForKey:@"placeid"];
     
+    if ([responseObject objectForKey:@"working"]!= nil) {
+      self.working = [[responseObject objectForKey:@"working"] boolValue];
+    } else {
+      self.working = false;
+    }
+    
+    self.imageUrl = [responseObject objectForKey:@"photourl"];
+    
   }
   return self;
 }

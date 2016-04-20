@@ -17,6 +17,8 @@
 @property (strong, nonatomic) OneLineFilterView *oneLineFilterView;
 @property (strong, nonatomic) TwoLineFilterView *twoLineFilterView;
 @property (assign, nonatomic) BOOL isFilterShown;
+@property (strong, nonatomic) NSString *subcategoryString;
+@property (assign, nonatomic) NSInteger filterTypeId;
 
 - (void)showOneLineFilterView:(BOOL)animated;
 - (void)hideOneLineFilterView:(BOOL)animated;

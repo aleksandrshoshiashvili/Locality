@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSString *cityId;
 @property (strong, nonatomic) NSString *workhours;
 @property (assign, nonatomic) BOOL checked;
+@property (assign, nonatomic) BOOL working;
 
 @property (strong, nonatomic) NSString *distance;
 @property (strong, nonatomic) NSString *disctitle;

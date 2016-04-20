@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class ASPlace;
+
 @interface PlaceViewController : UIViewController
+
+@property (strong, nonatomic) ASPlace *place;
 
 @end

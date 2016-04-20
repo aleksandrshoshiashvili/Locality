@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dRr-5K-7tV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dRr-5K-7tV">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -284,7 +284,7 @@
                                             <outlet property="labelDicount" destination="8Vc-hN-X11" id="PJ5-dy-uYi"/>
                                             <outlet property="labelDistance" destination="6gH-c3-ib9" id="fT6-SS-rIq"/>
                                             <outlet property="labelPlaceName" destination="HoV-VM-jeU" id="aTh-s3-Eht"/>
-                                            <segue destination="KFP-Rf-rBW" kind="show" id="8Yg-3r-fgq"/>
+                                            <segue destination="KFP-Rf-rBW" kind="show" identifier="openPlaceFromList" id="8Yg-3r-fgq"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
