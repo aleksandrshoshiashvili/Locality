@@ -18,6 +18,11 @@
 
 #import "Constants.h"
 
+#import "ASPlace.h"
+#import "ASFeatures.h"
+
+#import "ASServerManager.h"
+
 typedef enum {
     PlaceCellTypeAddress,
     PlaceCellTypeDiscount
@@ -45,38 +50,11 @@ typedef enum {
     
     // Setup the bar
 //    self.myCustomBar = [[SquareCashStyleBar alloc] initWithFrame:CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.frame), 100.0)];
-    
-    self.myCustomBar = [[SquareCashStyleBar alloc] initWithFrame:CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.frame), 100.0)
-                                                       placeName:@"Dobro Bar"
-                                                        features:[NSArray arrayWithObjects:[UIImage imageNamed:@"wifi512.png"], [UIImage imageNamed:@"debit512.png"], nil]
-                                                        workhour:@"Работает до 23:30"];
-    
-    SquareCashStyleBehaviorDefiner *behaviorDefiner = [[SquareCashStyleBehaviorDefiner alloc] init];
-    [behaviorDefiner addSnappingPositionProgress:0.0 forProgressRangeStart:0.0 end:0.5];
-    [behaviorDefiner addSnappingPositionProgress:1.0 forProgressRangeStart:0.5 end:1.0];
-    behaviorDefiner.snappingEnabled = YES;
-    behaviorDefiner.elasticMaximumHeightAtTop = NO; // Когда тянешь вниз
-    self.myCustomBar.behaviorDefiner = behaviorDefiner;
-    // Configure a separate UITableViewDelegate and UIScrollViewDelegate (optional)
-    self.delegateSplitter = [[BLKDelegateSplitter alloc] initWithFirstDelegate:behaviorDefiner secondDelegate:self];
-    self.tableView.delegate = (id<UITableViewDelegate>)self.delegateSplitter;
-    self.tableView.dataSource = self;
-    
-    [self.view addSubview:self.myCustomBar];
-    
-    // Setup the table view
-//    self.tableView.contentOffset = CGPointMake(0.0, self.myCustomBar.maximumBarHeight);
-    self.tableView.contentInset = UIEdgeInsetsMake(self.myCustomBar.maximumBarHeight - 13.0, 0.0, 0.0, 0.0);
-    self.tableView.backgroundColor = appMainColor;
-    
-    // Add close button - it's pinned to the top right corner, so it doesn't need to respond to bar height changes
-    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    closeButton.frame = CGRectMake(0.0 + 8.0, 22.5, 30.0, 30.0);
-    closeButton.tintColor = [UIColor whiteColor];
-    [closeButton setImage:[UIImage imageNamed:@"back512.png"] forState:UIControlStateNormal];
-    [closeButton addTarget:self action:@selector(closeViewController:) forControlEvents:UIControlEventTouchUpInside];
-    [self.myCustomBar addSubview:closeButton];
-    
+  
+  //#import <SDWebImage/UIImageView+WebCache.h>
+  
+  [self getPlacesById:[NSNumber numberWithUnsignedInt:self.place.uid.integerValue]];
+  
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -94,6 +72,67 @@ typedef enum {
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Setup
+
+- (void)setupViews {
+  
+  NSMutableArray *featuresArray = [NSMutableArray array];
+  
+  if (self.place.featuresArray.count != 0) {
+    if (self.place.featuresArray.firstObject.cards) {
+      [featuresArray addObject:[UIImage imageNamed:@"debit512.png"]];
+    }
+    if (self.place.featuresArray.firstObject.wifi) {
+      [featuresArray addObject:[UIImage imageNamed:@"wifi512.png"]];
+    }
+  }
+  
+  self.myCustomBar = [[SquareCashStyleBar alloc] initWithFrame:CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.frame), 100.0)
+                                                     placeName:self.place.title
+                                                      features:featuresArray
+                                                      workhour:self.place.workhours
+                                                      imageUrl:self.place.imageUrl];
+  
+  SquareCashStyleBehaviorDefiner *behaviorDefiner = [[SquareCashStyleBehaviorDefiner alloc] init];
+  [behaviorDefiner addSnappingPositionProgress:0.0 forProgressRangeStart:0.0 end:0.5];
+  [behaviorDefiner addSnappingPositionProgress:1.0 forProgressRangeStart:0.5 end:1.0];
+  behaviorDefiner.snappingEnabled = YES;
+  behaviorDefiner.elasticMaximumHeightAtTop = NO; // Когда тянешь вниз
+  self.myCustomBar.behaviorDefiner = behaviorDefiner;
+  // Configure a separate UITableViewDelegate and UIScrollViewDelegate (optional)
+  self.delegateSplitter = [[BLKDelegateSplitter alloc] initWithFirstDelegate:behaviorDefiner secondDelegate:self];
+  self.tableView.delegate = (id<UITableViewDelegate>)self.delegateSplitter;
+  self.tableView.dataSource = self;
+  
+  [self.view addSubview:self.myCustomBar];
+  
+  // Setup the table view
+  //    self.tableView.contentOffset = CGPointMake(0.0, self.myCustomBar.maximumBarHeight);
+  self.tableView.contentInset = UIEdgeInsetsMake(self.myCustomBar.maximumBarHeight - 13.0, 0.0, 0.0, 0.0);
+  self.tableView.backgroundColor = appMainColor;
+  
+  // Add close button - it's pinned to the top right corner, so it doesn't need to respond to bar height changes
+  UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  closeButton.frame = CGRectMake(0.0 + 8.0, 22.5, 20.0, 20.0);
+  closeButton.tintColor = [UIColor whiteColor];
+  [closeButton setImage:[UIImage imageNamed:@"back512.png"] forState:UIControlStateNormal];
+  [closeButton addTarget:self action:@selector(closeViewController:) forControlEvents:UIControlEventTouchUpInside];
+  [self.myCustomBar addSubview:closeButton];
+}
+
+#pragma mark - Load
+
+- (void)getPlacesById:(NSNumber *)placeId {
+  
+  [[ASServerManager sharedManager] getlistByPlaceId:[placeId stringValue] onSuccess:^(ASPlace *place) {
+    self.place = place;
+    [self setupViews];
+  } onFailure:^(NSError *error, NSInteger statusCode) {
+    NSLog(@"getlistByPlaceId error = %@, statsuCode = %ld", error.localizedDescription, (long)statusCode);
+  }];
+  
 }
 
 #pragma mark - Actions
@@ -122,8 +161,8 @@ typedef enum {
                 placeAddressCell = (PlaceAddressCell *)[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:placeAddressCellIdentifier];
             }
             
-            placeAddressCell.labelAddress.text = @"Страстной б-р, 4, стр. 2";
-            placeAddressCell.labelDistance.text = @"1.7 км";
+            placeAddressCell.labelAddress.text = self.place.address;
+            placeAddressCell.labelDistance.text = self.place.distance;
             placeAddressCell.backgroundColor = [UIColor grayColor];
             
             return placeAddressCell;

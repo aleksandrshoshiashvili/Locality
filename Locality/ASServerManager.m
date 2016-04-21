@@ -116,6 +116,10 @@
      
      ASPlace *place = [[ASPlace alloc] initWithServerResponse:placeDict];
      
+     if ([responseObject objectForKey:@"photos"] != nil) {
+       place.imageUrl = [[[responseObject objectForKey:@"photos"] objectForKey:@"0"] objectForKey:@"url"];
+     }
+     
      NSDictionary *featuresDict = [responseObject objectForKey:@"features"];
      
      ASFeatures *feature = [[ASFeatures alloc] initWithServerResponse:featuresDict];

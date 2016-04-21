@@ -14,6 +14,7 @@
 - (id)initWithFrame:(CGRect)frame
           placeName:(NSString *)placeName
            features:(NSArray *)featuresImagesArray
-           workhour:(NSString *)workhourText;
+           workhour:(NSString *)workhourText
+           imageUrl:(NSString *) imageUrl;
 
 @end

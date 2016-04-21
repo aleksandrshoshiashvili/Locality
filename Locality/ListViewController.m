@@ -342,21 +342,6 @@
 // openPlaceFromList
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//    if segue.identifier == SegueIdentifierConstants.showRoutesFromProfile {
-//      let viewController = segue.destinationViewController as? RoutesVC
-//      viewController?.mainUser = showedUser!
-//    } else if segue.identifier == SegueIdentifierConstants.showComments {
-//      let viewController = segue.destinationViewController as? CommentsViewController
-//      viewController?.isMyProfile = isMyProfile
-//      viewController?.showedUser = showedUser
-//    } else if segue.identifier == SegueIdentifierConstants.showChatWithUserFromProfile {
-//      let viewController = segue.destinationViewController as? DialogViewController
-//      viewController?.senderDisplayName = showedUser?.name
-//      viewController?.senderId = showedUser?.userId?.stringValue
-//      viewController?.user = showedUser
-//    }
-//  }
   if ([segue.identifier isEqualToString:@"openPlaceFromList"]) {
     PlaceViewController *placeVC = segue.destinationViewController;
     UITableViewCell *cell = sender;
@@ -364,7 +349,6 @@
     ASPlace *place = [self.filterArray objectAtIndex:indexPath.row];
     placeVC.place = place;
   }
-  
 }
 
 
