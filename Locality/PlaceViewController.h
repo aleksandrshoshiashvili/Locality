@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @class ASPlace;
 
 @interface PlaceViewController : UIViewController
 
 @property (strong, nonatomic) ASPlace *place;
+@property (strong, nonatomic) CLLocation *myLocation;
 
 @end

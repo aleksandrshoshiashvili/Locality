@@ -8,6 +8,8 @@
 
 #import "CityTableViewController.h"
 #import "Constants.h"
+#import "ASServerManager.h"
+#import "ASCity.h"
 
 @interface CityTableViewController ()
 
@@ -18,56 +20,65 @@
 @implementation CityTableViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    self.cityArray = @[@"Москва", @"Санкт-Петербург", @"Сыктывкар", @"Хабаровск", @"Ярославль"];
-    
+  [super viewDidLoad];
+  
+  [[ASServerManager sharedManager] getCitiesOnSuccess:^(NSArray *array) {
+    self.cityArray = [NSArray arrayWithArray:array];
+    [self.tableView reloadData];
+  } onFailure:^(NSError *error, NSInteger statusCode) {
+    NSLog(@"getCitiesOnSuccess fail");
+  }];
+  
+//  self.cityArray = @[@"Москва", @"Санкт-Петербург", @"Сыктывкар", @"Хабаровск", @"Ярославль"];
+  
 }
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+  return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.cityArray count];
+  return [self.cityArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-        
-    static NSString *settingCityCellIdentifier = @"CityCell";
-
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:settingCityCellIdentifier];
-
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:settingCityCellIdentifier];
-    }
-    
-    cell.textLabel.text = [self.cityArray objectAtIndex:indexPath.row];
-
-    return cell;
-    
+  
+  static NSString *settingCityCellIdentifier = @"CityCell";
+  
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:settingCityCellIdentifier];
+  
+  if (!cell) {
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:settingCityCellIdentifier];
+  }
+  
+  ASCity *city = [self.cityArray objectAtIndex:indexPath.row];
+  
+  cell.textLabel.text = city.name;
+  
+  return cell;
+  
 }
 
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:[self.cityArray objectAtIndex:indexPath.row] forKey:kCityKey];
-    [userDefaults synchronize];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kCityNotification object:nil];
-    
-    [self.navigationController popViewControllerAnimated:YES];
+  
+  [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+  
+  NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+  [userDefaults setObject:[[self.cityArray objectAtIndex:indexPath.row] name] forKey:kCityKey];
+  [userDefaults synchronize];
+  
+  [[NSNotificationCenter defaultCenter] postNotificationName:kCityNotification object:nil];
+  
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

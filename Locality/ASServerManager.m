@@ -11,6 +11,7 @@
 #import "ASPlace.h"
 #import "ASFeatures.h"
 #import "ASDiscount.h"
+#import "ASCity.h"
 
 @interface ASServerManager ()
 
@@ -217,6 +218,252 @@
   
 }
 
-//http://discountspanel.ru/api/getlist?lat=55.751244&long=37.618423&subcat=(1,2)
+- (void)getCitiesOnSuccess:(void(^)(NSArray *array)) success
+                 onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure {
+  
+  [self.requestOperationManager
+   GET:@"cities"
+   parameters:nil
+   success:^(AFHTTPRequestOperation *operation, id responseObject) {
+     
+     NSLog(@"JSON: %@", responseObject);
+     
+     NSArray *responseDict = (NSArray *)responseObject;
+     NSMutableArray *resultArray = [NSMutableArray array];
+     
+     for (NSDictionary *dict in responseDict) {
+       ASCity *city = [[ASCity alloc] initWithServerResponse:dict];
+       [resultArray addObject:city];
+     }
+     
+     if ([resultArray count] > 0) {
+       if (success) {
+         success(resultArray);
+       }
+     } else {
+       if (failure) {
+         failure(nil, operation.response.statusCode);
+       }
+     }
+     
+   }
+   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+     NSLog(@"Error: %@", error);
+     
+     if (failure) {
+       failure(error, operation.response.statusCode);
+     }
+     
+   }];
+  
+}
+
+- (void)getCompanyWithId:(NSString *)companyId
+                      latitude:(double)lat
+                    longtitude:(double)lon
+                     onSuccess:(void(^)(ASPlace *place)) success
+                     onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure {
+  
+  [self.requestOperationManager
+   GET:[NSString stringWithFormat:@"companies/%@/lat%lf&lng%lf", companyId, lat, lon]
+   parameters:nil
+   success:^(AFHTTPRequestOperation *operation, id responseObject) {
+     
+     NSLog(@"JSON: %@", responseObject);
+     
+     NSDictionary *responseDict = (NSDictionary *)[(NSArray *)responseObject firstObject];
+     
+     if (responseDict != nil) {
+       ASPlace *place = [[ASPlace alloc] initWithServerResponse:responseDict];
+       if (success) {
+         success(place);
+       }
+     } else {
+       if (failure) {
+         failure(nil, operation.response.statusCode);
+       }
+     }
+     
+   }
+   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+     NSLog(@"Error: %@", error);
+     
+     if (failure) {
+       failure(error, operation.response.statusCode);
+     }
+     
+   }];
+  
+}
+
+- (void)getCompanyWithId:(NSString *)companyId
+               onSuccess:(void(^)(ASPlace *place)) success
+               onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure {
+  
+  [self.requestOperationManager
+   GET:[NSString stringWithFormat:@"companies/%@", companyId]
+   parameters:nil
+   success:^(AFHTTPRequestOperation *operation, id responseObject) {
+     
+     NSLog(@"JSON: %@", responseObject);
+     
+     NSDictionary *responseDict = (NSDictionary *)[(NSArray *)responseObject firstObject];
+     
+     if (responseDict != nil) {
+       ASPlace *place = [[ASPlace alloc] initWithServerResponse:responseDict];
+       if (success) {
+         success(place);
+       }
+     } else {
+       if (failure) {
+         failure(nil, operation.response.statusCode);
+       }
+     }
+     
+   }
+   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+     NSLog(@"Error: %@", error);
+     
+     if (failure) {
+       failure(error, operation.response.statusCode);
+     }
+     
+   }];
+  
+}
+
+- (void)getCompaniesByLatitude:(double)lat
+               longtitude:(double)lon
+                  category:(NSString *)cat
+               subcategory:(NSString *)subcat
+                onSuccess:(void(^)(NSArray *array)) success
+                onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure {
+  
+  [self.requestOperationManager
+   GET:[NSString stringWithFormat:@"companies/lat%lf&lng%lf&cat%@&subcat%@", lat, lon, cat, subcat]
+   parameters:nil
+   success:^(AFHTTPRequestOperation *operation, id responseObject) {
+     
+     NSLog(@"JSON: %@", responseObject);
+     
+     NSArray *responseDict = (NSArray *)responseObject;
+     
+     NSMutableArray *resultPlacesArray = [NSMutableArray array];
+     
+     for (NSDictionary *placeDict in responseDict) {
+       
+       NSLog(@"placeDict = %@", placeDict);
+       ASPlace *place = [[ASPlace alloc] initWithServerResponse:placeDict];
+       [resultPlacesArray addObject:place];
+     }
+     
+     if ([resultPlacesArray count] > 0) {
+       if (success) {
+         success(resultPlacesArray);
+       }
+     } else {
+       if (failure) {
+         failure(nil, operation.response.statusCode);
+       }
+     }
+     
+   }
+   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+     NSLog(@"Error: %@", error);
+     
+     if (failure) {
+       failure(error, operation.response.statusCode);
+     }
+     
+   }];
+  
+}
+
+- (void)getCompaniesByLatitude:(double)lat
+                    longtitude:(double)lon
+                     onSuccess:(void(^)(NSArray *array)) success
+                     onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure {
+  
+  [self.requestOperationManager
+   GET:[NSString stringWithFormat:@"companies/lat%lf&lng%lf", lat, lon]
+   parameters:nil
+   success:^(AFHTTPRequestOperation *operation, id responseObject) {
+     
+     NSLog(@"JSON: %@", responseObject);
+     
+     NSArray *responseDict = (NSArray *)responseObject;
+     
+     NSMutableArray *resultPlacesArray = [NSMutableArray array];
+     
+     for (NSDictionary *placeDict in responseDict) {
+       
+       NSLog(@"placeDict = %@", placeDict);
+       ASPlace *place = [[ASPlace alloc] initWithServerResponse:placeDict];
+       [resultPlacesArray addObject:place];
+     }
+     
+     if ([resultPlacesArray count] > 0) {
+       if (success) {
+         success(resultPlacesArray);
+       }
+     } else {
+       if (failure) {
+         failure(nil, operation.response.statusCode);
+       }
+     }
+     
+   }
+   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+     NSLog(@"Error: %@", error);
+     
+     if (failure) {
+       failure(error, operation.response.statusCode);
+     }
+     
+   }];
+  
+}
+
+- (void)getSharesBySharesIdString:(NSString *) sharesString
+                        onSuccess:(void(^)(NSArray *array)) success
+                        onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure {
+  
+  [self.requestOperationManager
+   GET:[NSString stringWithFormat:@"shares/%@", sharesString]
+   parameters:nil
+   success:^(AFHTTPRequestOperation *operation, id responseObject) {
+     
+     NSLog(@"JSON: %@", responseObject);
+     
+     NSArray *responseDict = (NSArray *)responseObject;
+     
+     NSMutableArray *resultPlacesArray = [NSMutableArray array];
+     
+     for (NSDictionary *placeDict in responseDict) {
+       ASDiscount *share = [[ASDiscount alloc] initWithServerResponse:placeDict];
+       [resultPlacesArray addObject:share];
+     }
+     
+     if ([resultPlacesArray count] > 0) {
+       if (success) {
+         success(resultPlacesArray);
+       }
+     } else {
+       if (failure) {
+         failure(nil, operation.response.statusCode);
+       }
+     }
+     
+   }
+   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+     NSLog(@"Error: %@", error);
+     
+     if (failure) {
+       failure(error, operation.response.statusCode);
+     }
+     
+   }];
+  
+}
 
 @end

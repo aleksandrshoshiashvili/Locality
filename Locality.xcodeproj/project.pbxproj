@@ -61,8 +61,11 @@
 		52A4F83B1C34D016006E6D7A /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A4F83A1C34D016006E6D7A /* MapViewController.m */; };
 		52AEF2E41C5C3DBE0035021A /* InfoWindowOfMarkerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AEF2E31C5C3DBE0035021A /* InfoWindowOfMarkerView.m */; };
 		52AEF2E61C5C3DDB0035021A /* InfoWindowOfMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52AEF2E51C5C3DDA0035021A /* InfoWindowOfMarkerView.xib */; };
+		52DED0E61D37B01500692396 /* ASCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DED0E51D37B01500692396 /* ASCity.m */; };
 		52EA713E1C57F3E50016AA4F /* OneLineFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EA713D1C57F3E50016AA4F /* OneLineFilterView.m */; };
 		52EA71401C57FDDF0016AA4F /* OneLineFilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52EA713F1C57FDDF0016AA4F /* OneLineFilterView.xib */; };
+		52EE9B251CCAC45D0008C92E /* PlaceMainDiscountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EE9B241CCAC45D0008C92E /* PlaceMainDiscountCell.m */; };
+		52EE9B281CCAC46F0008C92E /* PlaceDiscountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EE9B271CCAC46F0008C92E /* PlaceDiscountCell.m */; };
 		565B9325D7C222F67311091A /* libPods-Locality.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5CCCCDE55F94C722EBBC882 /* libPods-Locality.a */; };
 		604A28481C34B3DE0002FD70 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 604A28471C34B3DE0002FD70 /* main.m */; };
 		604A284B1C34B3DE0002FD70 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 604A284A1C34B3DE0002FD70 /* AppDelegate.m */; };
@@ -150,9 +153,15 @@
 		52AEF2E51C5C3DDA0035021A /* InfoWindowOfMarkerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoWindowOfMarkerView.xib; sourceTree = "<group>"; };
 		52C967AC1C35490A00C923A7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		52C967AF1C354F5E00C923A7 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
+		52DED0E41D37B01500692396 /* ASCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASCity.h; sourceTree = "<group>"; };
+		52DED0E51D37B01500692396 /* ASCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASCity.m; sourceTree = "<group>"; };
 		52EA713C1C57F3E50016AA4F /* OneLineFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneLineFilterView.h; sourceTree = "<group>"; };
 		52EA713D1C57F3E50016AA4F /* OneLineFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneLineFilterView.m; sourceTree = "<group>"; };
 		52EA713F1C57FDDF0016AA4F /* OneLineFilterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OneLineFilterView.xib; sourceTree = "<group>"; };
+		52EE9B231CCAC45D0008C92E /* PlaceMainDiscountCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceMainDiscountCell.h; sourceTree = "<group>"; };
+		52EE9B241CCAC45D0008C92E /* PlaceMainDiscountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceMainDiscountCell.m; sourceTree = "<group>"; };
+		52EE9B261CCAC46F0008C92E /* PlaceDiscountCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceDiscountCell.h; sourceTree = "<group>"; };
+		52EE9B271CCAC46F0008C92E /* PlaceDiscountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceDiscountCell.m; sourceTree = "<group>"; };
 		604A28431C34B3DE0002FD70 /* Locality.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Locality.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		604A28471C34B3DE0002FD70 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		604A28491C34B3DE0002FD70 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -221,6 +230,8 @@
 				52681BB51C5AB37200CC7093 /* ASFeatures.m */,
 				52681BB71C5AB3A900CC7093 /* ASPhoto.h */,
 				52681BB81C5AB3A900CC7093 /* ASPhoto.m */,
+				52DED0E41D37B01500692396 /* ASCity.h */,
+				52DED0E51D37B01500692396 /* ASCity.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -290,6 +301,10 @@
 				52681B9B1C5A6E5300CC7093 /* PlaceCell.m */,
 				52A0CAF21C63FA0100CEA4F2 /* PlaceAddressCell.h */,
 				52A0CAF31C63FA0100CEA4F2 /* PlaceAddressCell.m */,
+				52EE9B231CCAC45D0008C92E /* PlaceMainDiscountCell.h */,
+				52EE9B241CCAC45D0008C92E /* PlaceMainDiscountCell.m */,
+				52EE9B261CCAC46F0008C92E /* PlaceDiscountCell.h */,
+				52EE9B271CCAC46F0008C92E /* PlaceDiscountCell.m */,
 				5292D3B81C5C790100D50974 /* FilterCollectionViewCell.h */,
 				5292D3B91C5C790100D50974 /* FilterCollectionViewCell.m */,
 				5292D3BB1C5C7A8900D50974 /* FilterCollectionViewCell.xib */,
@@ -544,7 +559,9 @@
 				52A4F8371C34C2F3006E6D7A /* CityTableViewController.m in Sources */,
 				52AEF2E41C5C3DBE0035021A /* InfoWindowOfMarkerView.m in Sources */,
 				5292D3BA1C5C790100D50974 /* FilterCollectionViewCell.m in Sources */,
+				52EE9B251CCAC45D0008C92E /* PlaceMainDiscountCell.m in Sources */,
 				52681B9C1C5A6E5300CC7093 /* PlaceCell.m in Sources */,
+				52DED0E61D37B01500692396 /* ASCity.m in Sources */,
 				52681BC11C5AB97E00CC7093 /* UIImage+ImageEffects.m in Sources */,
 				52681BA51C5AADB400CC7093 /* PlaceViewController.m in Sources */,
 				52EA713E1C57F3E50016AA4F /* OneLineFilterView.m in Sources */,
@@ -559,6 +576,7 @@
 				604A284B1C34B3DE0002FD70 /* AppDelegate.m in Sources */,
 				52681BB61C5AB37200CC7093 /* ASFeatures.m in Sources */,
 				604A28481C34B3DE0002FD70 /* main.m in Sources */,
+				52EE9B281CCAC46F0008C92E /* PlaceDiscountCell.m in Sources */,
 				52A4F8311C34BA2F006E6D7A /* SettingViewController.m in Sources */,
 				52A4F83B1C34D016006E6D7A /* MapViewController.m in Sources */,
 				52681BAA1C5AB25300CC7093 /* ASServerManager.m in Sources */,

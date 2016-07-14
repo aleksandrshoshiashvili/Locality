@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dRr-5K-7tV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dRr-5K-7tV">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -340,16 +340,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="328" height="61"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Страстной б-р, 4, стр. 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kdr-cR-2kO">
-                                                    <rect key="frame" x="8" y="8" width="222" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1.5 км" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tn5-pw-FEn">
+                                                    <rect key="frame" x="8" y="37" width="312" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1.5 км" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tn5-pw-FEn">
-                                                    <rect key="frame" x="8" y="37" width="40" height="16"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Страстной б-р, 4, стр. 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kdr-cR-2kO">
+                                                    <rect key="frame" x="8" y="8" width="312" height="21"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -357,6 +356,72 @@
                                         <connections>
                                             <outlet property="labelAddress" destination="Kdr-cR-2kO" id="vKO-Se-9az"/>
                                             <outlet property="labelDistance" destination="tn5-pw-FEn" id="wPa-xA-TDg"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceMainDiscountCell" rowHeight="73" id="XG4-o4-SNk" customClass="PlaceMainDiscountCell">
+                                        <rect key="frame" x="0.0" y="198" width="328" height="73"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XG4-o4-SNk" id="bTO-ls-HY5">
+                                            <rect key="frame" x="0.0" y="0.0" width="328" height="72"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Скидка" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99K-4X-mmk">
+                                                    <rect key="frame" x="48" y="8" width="272" height="27"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="272" id="HCH-bG-0WX"/>
+                                                        <constraint firstAttribute="height" constant="27" id="vX4-65-GdD"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mZy-W8-SW0">
+                                                    <rect key="frame" x="12" y="8" width="28" height="27"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ct-Wg-MHn">
+                                                    <rect key="frame" x="12" y="43" width="29" height="15"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="mZy-W8-SW0" firstAttribute="leading" secondItem="8Ct-Wg-MHn" secondAttribute="leading" id="5Wi-Ju-4gW"/>
+                                                <constraint firstItem="99K-4X-mmk" firstAttribute="top" secondItem="mZy-W8-SW0" secondAttribute="top" id="CFt-L2-Ypc"/>
+                                                <constraint firstItem="99K-4X-mmk" firstAttribute="bottom" secondItem="mZy-W8-SW0" secondAttribute="bottom" id="Nfq-BX-u7n"/>
+                                                <constraint firstItem="99K-4X-mmk" firstAttribute="trailing" secondItem="bTO-ls-HY5" secondAttribute="trailingMargin" id="hAq-Nc-GKx"/>
+                                                <constraint firstItem="8Ct-Wg-MHn" firstAttribute="top" secondItem="99K-4X-mmk" secondAttribute="bottom" constant="8" symbolic="YES" id="nAo-Uk-sXK"/>
+                                                <constraint firstItem="mZy-W8-SW0" firstAttribute="leading" secondItem="bTO-ls-HY5" secondAttribute="leadingMargin" constant="4" id="shW-ug-HJ4"/>
+                                                <constraint firstItem="99K-4X-mmk" firstAttribute="leading" secondItem="mZy-W8-SW0" secondAttribute="trailing" constant="8" id="tZm-bk-1Ya"/>
+                                                <constraint firstItem="99K-4X-mmk" firstAttribute="leading" secondItem="mZy-W8-SW0" secondAttribute="trailing" constant="8" symbolic="YES" id="uGB-u7-bMK"/>
+                                                <constraint firstItem="99K-4X-mmk" firstAttribute="top" secondItem="bTO-ls-HY5" secondAttribute="topMargin" id="xhV-2f-Eb9"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="discountDesctLabel" destination="8Ct-Wg-MHn" id="UlM-Kl-fIo"/>
+                                            <outlet property="discountLabel" destination="99K-4X-mmk" id="pFJ-W6-9PN"/>
+                                            <outlet property="discountTypeImageView" destination="mZy-W8-SW0" id="bYQ-KM-TcG"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceDiscountCell" rowHeight="30" id="uGl-80-PvZ" customClass="PlaceDiscountCell">
+                                        <rect key="frame" x="0.0" y="271" width="328" height="30"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uGl-80-PvZ" id="JqU-W5-VrR">
+                                            <rect key="frame" x="0.0" y="0.0" width="328" height="29"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ezp-PV-t3r">
+                                                    <rect key="frame" x="8" y="5" width="20" height="20"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Скидка" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVW-PX-Tq3">
+                                                    <rect key="frame" x="36" y="5" width="272" height="20"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="discountLabel" destination="hVW-PX-Tq3" id="RnB-VV-aBU"/>
+                                            <outlet property="discountTypeImageView" destination="ezp-PV-t3r" id="wdT-Fx-6Mj"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

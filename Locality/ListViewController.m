@@ -16,11 +16,15 @@
 #import "OneLineFilterView.h"
 #import "PlaceViewController.h"
 
-@interface ListViewController () <UITableViewDelegate, UITableViewDataSource>
+#import <CoreLocation/CoreLocation.h>
+
+@interface ListViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *placesArray;
 @property (strong, nonatomic) NSMutableArray *filterArray;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLLocation *myLocation;
 
 @end
 
@@ -30,16 +34,18 @@
   [super viewDidLoad];
   // Do any additional setup after loading the view, typically from a nib.
   
+  self.locationManager = [[CLLocationManager alloc] init];
+  [self setupLocation];
+  
   _tableView.delegate = self;
   _tableView.dataSource = self;
   _tableView.backgroundColor = appMainColor;
   
-  [self getPlacesByLatitude:55.751244 andLongtitude:37.618423];
-//  [self getPlacesById:@(1)];
-  
   self.filterArray = [NSMutableArray array];
   
   [self setupNotifications];
+  
+  [self getCompaniesByLocation];
   
 }
 
@@ -61,7 +67,36 @@
   
 }
 
+#pragma mark - Location
+
+- (void)setupLocation {
+  self.locationManager.delegate = self;
+  self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+  
+  [self.locationManager startUpdatingLocation];
+}
+
 #pragma mark - Get Places
+
+- (void)getCompaniesByCategory:(NSString *)cat subcategory:(NSString *)subcat {
+  [[ASServerManager sharedManager] getCompaniesByLatitude:self.myLocation.coordinate.latitude longtitude:self.myLocation.coordinate.longitude category:cat subcategory:subcat onSuccess:^(NSArray *array) {
+    self.placesArray = [NSArray arrayWithArray:array];
+    self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
+    [self.tableView reloadData];
+  } onFailure:^(NSError *error, NSInteger statusCode) {
+    NSLog(@"getCompaniesByLatitude error = %@, statusCode = %ld", error.localizedDescription, (long)statusCode);
+  }];
+}
+
+- (void)getCompaniesByLocation {
+  [[ASServerManager sharedManager] getCompaniesByLatitude:self.myLocation.coordinate.latitude longtitude:self.myLocation.coordinate.longitude onSuccess:^(NSArray *array) {
+    self.placesArray = [NSArray arrayWithArray:array];
+    self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
+    [self.tableView reloadData];
+  } onFailure:^(NSError *error, NSInteger statusCode) {
+    NSLog(@"getCompaniesByLatitude error = %@, statusCode = %ld", error.localizedDescription, (long)statusCode);
+  }];
+}
 
 - (void)getPlacesByLatitude:(double)lat andLongtitude:(double)lon {
   
@@ -348,6 +383,25 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     ASPlace *place = [self.filterArray objectAtIndex:indexPath.row];
     placeVC.place = place;
+    placeVC.myLocation = self.myLocation;
+  }
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+  NSLog(@"didFailWithError: %@", error);
+  UIAlertView *errorAlert = [[UIAlertView alloc]
+                             initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+  [errorAlert show];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+  CLLocation *currentLocation = newLocation;
+  
+  if (currentLocation != nil) {
+    self.myLocation = currentLocation;
   }
 }
 

@@ -31,4 +31,33 @@
                  onSuccess:(void(^)(NSArray *array)) success
                  onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure;
 
+- (void)getCitiesOnSuccess:(void(^)(NSArray *array)) success
+                 onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure;
+
+- (void)getCompanyWithId:(NSString *)companyId
+                latitude:(double)lat
+              longtitude:(double)lon
+               onSuccess:(void(^)(ASPlace *place)) success
+               onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure;
+
+- (void)getCompanyWithId:(NSString *)companyId
+               onSuccess:(void(^)(ASPlace *place)) success
+               onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure;
+
+- (void)getCompaniesByLatitude:(double)lat
+                    longtitude:(double)lon
+                      category:(NSString *)cat
+                   subcategory:(NSString *)subcat
+                     onSuccess:(void(^)(NSArray *array)) success
+                     onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure;
+
+- (void)getCompaniesByLatitude:(double)lat
+                    longtitude:(double)lon
+                     onSuccess:(void(^)(NSArray *array)) success
+                     onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure;
+
+- (void)getSharesBySharesIdString:(NSString *) sharesString
+                        onSuccess:(void(^)(NSArray *array)) success
+                        onFailure:(void(^)(NSError *error, NSInteger statusCode)) failure;
+
 @end

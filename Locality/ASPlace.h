@@ -14,17 +14,25 @@
 
 @interface ASPlace : ASServerObject
 
-@property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *descr;
+@property (strong, nonatomic) NSString *accountId;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *cityId;
 @property (strong, nonatomic) NSString *address;
+@property (strong, nonatomic) NSString *photosString;
 @property (assign, nonatomic) double latitude;
 @property (assign, nonatomic) double longtitude;
-@property (strong, nonatomic) NSString *cityId;
+@property (strong, nonatomic) NSString *distance;
+@property (strong, nonatomic) NSString *sharesString;
+@property (assign, nonatomic) BOOL working;
+@property (assign, nonatomic) BOOL wifi;
+@property (assign, nonatomic) BOOL card;
+
+@property (strong, nonatomic) NSString *title;
+
 @property (strong, nonatomic) NSString *workhours;
 @property (assign, nonatomic) BOOL checked;
-@property (assign, nonatomic) BOOL working;
 
-@property (strong, nonatomic) NSString *distance;
 @property (strong, nonatomic) NSString *disctitle;
 @property (strong, nonatomic) NSNumber *category;
 @property (strong, nonatomic) NSNumber *subcategory;
