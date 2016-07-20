@@ -75,4 +75,47 @@
   return self;
 }
 
+- (NSInteger)sharesCount {
+  NSArray *sharesArray = [_sharesString componentsSeparatedByString:@";"];
+  if (sharesArray) {
+    return [sharesArray count];
+  } else {
+    return 0;
+  }
+}
+
+- (NSString *)sharesCountString {
+  
+  NSArray *sharesArray = [_sharesString componentsSeparatedByString:@";"];
+  NSInteger sharesCount = 0;
+  if (sharesArray) {
+    sharesCount = [sharesArray count];
+  }
+  
+  if (sharesCount > 0) {
+    switch (sharesCount) {
+      case 1:
+        return @"всего 1 акция";
+      case 2:
+        return @"и ещё 1 акция";
+      case 3:
+        return @"и ещё 2 акции";
+      case 4:
+        return @"и ещё 3 акции";
+      case 5:
+        return @"и ещё 4 акции";
+      case 6:
+        return @"и ещё 5 акций";
+      case 7:
+        return @"и ещё 6 акций";
+      case 8:
+        return @"и ещё 7 акций";
+      default:
+        return [NSString stringWithFormat:@"и ещё %ld акций", (long)sharesCount - 1];
+    }
+  } else {
+    return @"Нет действующийх акций";
+  }
+}
+
 @end

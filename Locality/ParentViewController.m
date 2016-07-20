@@ -52,6 +52,8 @@
   self.fakeView.backgroundColor = [UIColor clearColor];
   UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fakeViewTapped)];
   [self.fakeView addGestureRecognizer:tap];
+  [self.view addSubview:self.fakeView];
+  self.fakeView.hidden = YES;
   
 }
 
@@ -131,8 +133,10 @@
     animateDuration = 0.5;
   }
   
-  [self.view addSubview:self.fakeView];
+//  [self.view addSubview:self.fakeView];
   [self.view insertSubview:self.fakeView belowSubview:self.oneLineFilterView];
+  
+  self.fakeView.hidden = NO;
   
   [UIView animateWithDuration:animateDuration animations:^{
     self.navigationController.navigationBar.alpha = 0.0;
@@ -151,6 +155,8 @@
     animateDuration = 0.5;
   }
   
+  self.fakeView.hidden = YES;
+  
   [UIView animateWithDuration:animateDuration animations:^{
     self.navigationController.navigationBar.alpha = 1.0;
     self.oneLineFilterView.alpha = 0.0;
@@ -168,8 +174,10 @@
     animateDuration = 0.5;
   }
   
-  [self.view addSubview:self.fakeView];
+//  [self.view addSubview:self.fakeView];
   [self.view insertSubview:self.fakeView belowSubview:self.twoLineFilterView];
+  
+  self.fakeView.hidden = NO;
   
   [UIView animateWithDuration:animateDuration animations:^{
     self.navigationController.navigationBar.alpha = 0.0;
@@ -187,6 +195,8 @@
   if (animated) {
     animateDuration = 0.5;
   }
+  
+  self.fakeView.hidden = YES;
   
   [UIView animateWithDuration:animateDuration animations:^{
     self.navigationController.navigationBar.alpha = 1.0;
@@ -320,6 +330,8 @@
     } else {
       [self hideOneLineFilterView:YES];
     }
+  } else {
+    self.fakeView.hidden = YES;
   }
 }
 

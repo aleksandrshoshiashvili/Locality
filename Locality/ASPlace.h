@@ -28,6 +28,9 @@
 @property (assign, nonatomic) BOOL wifi;
 @property (assign, nonatomic) BOOL card;
 
+@property (assign, nonatomic) NSInteger sharesCount;
+@property (strong, nonatomic) NSString *sharesCountString;
+
 @property (strong, nonatomic) NSString *title;
 
 @property (strong, nonatomic) NSString *workhours;

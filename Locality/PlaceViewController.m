@@ -210,7 +210,7 @@ typedef enum {
       }
       
       placeAddressCell.labelAddress.text = self.place.address;
-      placeAddressCell.labelDistance.text = [NSString stringWithFormat:@"%@ км.", self.place.distance];
+      placeAddressCell.labelDistance.text = [NSString stringWithFormat:@"%@ м.", self.place.distance];
       placeAddressCell.backgroundColor = [UIColor lightGrayColor];
       
       return placeAddressCell;
