@@ -156,20 +156,7 @@
             [cell.buttonFilter setImage:[UIImage imageNamed:@"rolls512.png"] forState:UIControlStateNormal];
             break;
         }
-        case 10: {
-            cell.labelFilterName.text = @"???";
-            [cell.buttonFilter setImage:[UIImage imageNamed:@"rolls512.png"] forState:UIControlStateNormal];
-            break;
-        }
-        case 11: {
-            cell.labelFilterName.text = @"???";
-            [cell.buttonFilter setImage:[UIImage imageNamed:@"rolls512.png"] forState:UIControlStateNormal];
-            break;
-        }
-            
         default:
-            cell.labelFilterName.text = @"???";
-            [cell.buttonFilter setImage:[UIImage imageNamed:@"rolls512.png"] forState:UIControlStateNormal];
             break;
     }
     
@@ -180,7 +167,7 @@
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(70, 70);
+    return CGSizeMake(75, 75);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {

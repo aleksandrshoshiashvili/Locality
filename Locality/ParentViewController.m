@@ -40,6 +40,20 @@
   
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
+  
+  if (![self.view.subviews containsObject:self.fakeView]) {
+    self.fakeView = [[UIView alloc] initWithFrame:self.view.frame];
+    self.fakeView.backgroundColor = [UIColor clearColor];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fakeViewTapped)];
+    [self.fakeView addGestureRecognizer:tap];
+    [self.view addSubview:self.fakeView];
+    self.fakeView.hidden = YES;
+  }
+  
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
   [super viewDidDisappear:animated];
   
@@ -48,11 +62,6 @@
     [self hideTwoLineFilterView:NO];
   }
   
-  self.fakeView = [[UIView alloc] initWithFrame:self.view.frame];
-  self.fakeView.backgroundColor = [UIColor clearColor];
-  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fakeViewTapped)];
-  [self.fakeView addGestureRecognizer:tap];
-  [self.view addSubview:self.fakeView];
   self.fakeView.hidden = YES;
   
 }
@@ -89,6 +98,7 @@
   [closeBtn setImage:[UIImage imageNamed:@"delete512.png"] forState:UIControlStateNormal];
   
   [coffeeBtn addTarget:self action:@selector(actionOpenCoffee:) forControlEvents:UIControlEventTouchUpInside];
+  [closeBtn addTarget:self action:@selector(actionResetFilters) forControlEvents:UIControlEventTouchUpInside];
   
   UIBarButtonItem *coffeeBarBtn = [[UIBarButtonItem alloc] initWithCustomView:coffeeBtn];
   UIBarButtonItem *closeBarBtn = [[UIBarButtonItem alloc] initWithCustomView:closeBtn];
@@ -231,6 +241,10 @@
   [self showTwoLineFilterView:YES];
   self.filterTypeId = 3;
   
+}
+
+- (void)actionResetFilters {
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"actionResetFiltersNotification" object:nil];
 }
 
 #pragma mark - Filter Actions

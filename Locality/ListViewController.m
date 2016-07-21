@@ -25,6 +25,7 @@
 @property (strong, nonatomic) NSMutableArray *filterArray;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *myLocation;
+@property (weak, nonatomic) IBOutlet UIView *errorView;
 
 @end
 
@@ -64,7 +65,7 @@
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionCancelCategory) name:@"actionCancelNotification" object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionChooseSelectedFilterInOneLineView:) name:@"actionChooseFilterInOneLineViewNotification" object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSelectedFilterButtonPressed:) name:@"actionFilterButtonPressedNotification" object:nil];
-  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionResetFilters) name:@"actionResetFiltersNotification" object:nil];
 }
 
 #pragma mark - Location
@@ -82,8 +83,26 @@
   [[ASServerManager sharedManager] getCompaniesByLatitude:self.myLocation.coordinate.latitude longtitude:self.myLocation.coordinate.longitude category:cat subcategory:subcat onSuccess:^(NSArray *array) {
     self.placesArray = [NSArray arrayWithArray:array];
     self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
+    self.errorView.hidden = YES;
     [self.tableView reloadData];
   } onFailure:^(NSError *error, NSInteger statusCode) {
+    if (statusCode == 200 || error.localizedDescription == nil) {
+      self.errorView.hidden = NO;
+    }
+    NSLog(@"getCompaniesByLatitude error = %@, statusCode = %ld", error.localizedDescription, (long)statusCode);
+  }];
+}
+
+- (void)getCompaniesBySubcategory:(NSString *)subcat {
+  [[ASServerManager sharedManager] getCompaniesByLatitude:self.myLocation.coordinate.latitude longtitude:self.myLocation.coordinate.longitude category:[NSString stringWithFormat:@"%ld", (long)self.filterTypeId] subcategory:subcat onSuccess:^(NSArray *array) {
+    self.placesArray = [NSArray arrayWithArray:array];
+    self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
+    self.errorView.hidden = YES;
+    [self.tableView reloadData];
+  } onFailure:^(NSError *error, NSInteger statusCode) {
+    if (statusCode == 200 || error.localizedDescription == nil) {
+      self.errorView.hidden = NO;
+    }
     NSLog(@"getCompaniesByLatitude error = %@, statusCode = %ld", error.localizedDescription, (long)statusCode);
   }];
 }
@@ -92,8 +111,12 @@
   [[ASServerManager sharedManager] getCompaniesByLatitude:self.myLocation.coordinate.latitude longtitude:self.myLocation.coordinate.longitude onSuccess:^(NSArray *array) {
     self.placesArray = [NSArray arrayWithArray:array];
     self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
+    self.errorView.hidden = YES;
     [self.tableView reloadData];
   } onFailure:^(NSError *error, NSInteger statusCode) {
+    if (statusCode == 200 || error.localizedDescription == nil) {
+      self.errorView.hidden = NO;
+    }
     NSLog(@"getCompaniesByLatitude error = %@, statusCode = %ld", error.localizedDescription, (long)statusCode);
   }];
 }
@@ -104,9 +127,13 @@
     
     self.placesArray = [NSArray arrayWithArray:array];
     self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
+    self.errorView.hidden = YES;
     [self.tableView reloadData];
     
   } onFailure:^(NSError *error, NSInteger statusCode) {
+    if (statusCode == 200 || error.localizedDescription == nil) {
+      self.errorView.hidden = NO;
+    }
     NSLog(@"getlistByLatitude error = %@, statsuCode = %ld", error.localizedDescription, (long)statusCode);
   }];
   
@@ -118,9 +145,13 @@
     
     self.placesArray = @[place];
     self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
+    self.errorView.hidden = YES;
     [self.tableView reloadData];
   
   } onFailure:^(NSError *error, NSInteger statusCode) {
+    if (statusCode == 200 || error.localizedDescription == nil) {
+      self.errorView.hidden = NO;
+    }
     NSLog(@"getlistByPlaceId error = %@, statsuCode = %ld", error.localizedDescription, (long)statusCode);
   }];
   
@@ -128,13 +159,25 @@
 
 - (void)getPlacesByLatitude:(double)lat andLongtitude:(double)lon subcategory:(NSString *)subcategory {
   
-  [[ASServerManager sharedManager] getlistByLatitude:lat longtitude:lon subcategory:subcategory onSuccess:^(NSArray *array) {
+  [[ASServerManager sharedManager] getCompaniesByLatitude:self.myLocation.coordinate.latitude longtitude:self.myLocation.coordinate.longitude category:[NSString stringWithFormat:@"%ld", (long)self.filterTypeId] subcategory:subcategory onSuccess:^(NSArray *array) {
     self.placesArray = [NSArray arrayWithArray:array];
     self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
+    self.errorView.hidden = YES;
     [self.tableView reloadData];
   } onFailure:^(NSError *error, NSInteger statusCode) {
-    NSLog(@"getlistBySubcategory error = %@, statsuCode = %ld", error.localizedDescription, (long)statusCode);
+    if (statusCode == 200 || error.localizedDescription == nil) {
+      self.errorView.hidden = NO;
+    }
+    NSLog(@"getCompaniesByLatitude error = %@, statusCode = %ld", error.localizedDescription, (long)statusCode);
   }];
+  
+//  [[ASServerManager sharedManager] getlistByLatitude:lat longtitude:lon subcategory:subcategory onSuccess:^(NSArray *array) {
+//    self.placesArray = [NSArray arrayWithArray:array];
+//    self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
+//    [self.tableView reloadData];
+//  } onFailure:^(NSError *error, NSInteger statusCode) {
+//    NSLog(@"getlistBySubcategory error = %@, statusCode = %ld", error.localizedDescription, (long)statusCode);
+//  }];
   
 }
 
@@ -176,6 +219,12 @@
 
 #pragma mark - Actions
 
+- (void)actionResetFilters {
+  self.subcategoryString = @"";
+  [self getCompaniesByLocation];
+  NSLog(@"actionResetFilters");
+}
+
 - (void)actionChooseAllCategory {
   NSLog(@"actionChooseAllCategory");
   
@@ -187,13 +236,13 @@
     self.subcategoryString = @"9,10,11,12,13,14,15,16,17,18";
   }
   
-  [self getPlacesByLatitude:55.1243 andLongtitude:51.123 subcategory:self.subcategoryString];
+  [self getCompaniesBySubcategory:self.subcategoryString];
   
 }
 
 - (void) actionCancelCategory {
   self.subcategoryString = @"";
-  [self getPlacesByLatitude:55.1243 andLongtitude:51.123];
+  [self getCompaniesByLocation];
   NSLog(@"actionCancelCategory");
 }
 
@@ -247,7 +296,7 @@
     }
   }
   
-  [self getPlacesByLatitude:55.751244 andLongtitude:37.618423 subcategory:self.subcategoryString];
+  [self getCompaniesBySubcategory:self.subcategoryString];
   
 }
 
@@ -334,7 +383,7 @@
       break;
   }
   
-  [self getPlacesByLatitude:55.751244 andLongtitude:37.618423 subcategory:self.subcategoryString];
+  [self getCompaniesBySubcategory:self.subcategoryString];
   
 }
 

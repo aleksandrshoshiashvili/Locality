@@ -31,6 +31,7 @@
 @property (strong, nonatomic) NSArray *placesArray;
 @property (strong, nonatomic) NSMutableArray *filterArray;
 @property (strong, nonatomic) CLLocation *myLocation;
+@property (weak, nonatomic) IBOutlet UIView *errorView;
 
 @end
 
@@ -49,10 +50,11 @@
   [self initMap];
   [self initInfoWindowOfMarkerView];
   [self getCompaniesByLocation];
+  [self setupNotifications];
   
   _viewForMap.backgroundColor = appMainColor;
   [self.view insertSubview:(UIView *)self.twoLineFilterView aboveSubview:_mapView];
-  
+  [self.view insertSubview:self.errorView aboveSubview:_mapView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,6 +66,17 @@
   [_mapView removeObserver:self
                 forKeyPath:@"myLocation"
                    context:NULL];
+}
+
+#pragma mark - Notifications
+
+- (void)setupNotifications {
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionChooseAllCategory) name:@"actionChooseAllNotification" object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionCancelCategory) name:@"actionCancelNotification" object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionChooseSelectedFilterInOneLineView:) name:@"actionChooseFilterInOneLineViewNotification" object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSelectedFilterButtonPressed:) name:@"actionFilterButtonPressedNotification" object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionResetFilters) name:@"actionResetFiltersNotification" object:nil];
 }
 
 #pragma mark - Map
@@ -122,8 +135,26 @@
   [[ASServerManager sharedManager] getCompaniesByLatitude:self.myLocation.coordinate.latitude longtitude:self.myLocation.coordinate.longitude onSuccess:^(NSArray *array) {
     self.placesArray = [NSArray arrayWithArray:array];
     self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
+    self.errorView.hidden = YES;
     [self createPins];
   } onFailure:^(NSError *error, NSInteger statusCode) {
+    if (statusCode == 200 || error.localizedDescription == nil) {
+      self.errorView.hidden = NO;
+    }
+    NSLog(@"getCompaniesByLatitude error = %@, statusCode = %ld", error.localizedDescription, (long)statusCode);
+  }];
+}
+
+- (void)getCompaniesBySubcategory:(NSString *)subcat {
+  [[ASServerManager sharedManager] getCompaniesByLatitude:self.myLocation.coordinate.latitude longtitude:self.myLocation.coordinate.longitude category:[NSString stringWithFormat:@"%ld", (long)self.filterTypeId] subcategory:subcat onSuccess:^(NSArray *array) {
+    self.placesArray = [NSArray arrayWithArray:array];
+    self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
+    self.errorView.hidden = YES;
+    [self createPins];
+  } onFailure:^(NSError *error, NSInteger statusCode) {
+    if (statusCode == 200 || error.localizedDescription == nil) {
+      self.errorView.hidden = NO;
+    }
     NSLog(@"getCompaniesByLatitude error = %@, statusCode = %ld", error.localizedDescription, (long)statusCode);
   }];
 }
@@ -323,6 +354,213 @@
                                                      zoom:14];
     _myLocation = location;
   }
+}
+
+#pragma mark - Notifications Actions
+
+#pragma mark - Actions
+
+- (void)actionResetFilters {
+  self.subcategoryString = @"";
+  [self getCompaniesByLocation];
+  NSLog(@"actionResetFilters");
+}
+
+- (void)actionChooseAllCategory {
+  NSLog(@"actionChooseAllCategory");
+  
+  if (self.filterTypeId == 1) {
+    self.subcategoryString = @"1,2,3,4";
+  } else if (self.filterTypeId == 2) {
+    self.subcategoryString = @"5,6,7,8";
+  } else if (self.filterTypeId == 3) {
+    self.subcategoryString = @"9,10,11,12,13,14,15,16,17,18";
+  }
+  
+  [self getCompaniesBySubcategory:self.subcategoryString];
+  
+}
+
+- (void) actionCancelCategory {
+  self.subcategoryString = @"";
+  [self getCompaniesByLocation];
+  NSLog(@"actionCancelCategory");
+}
+
+- (void) actionChooseSelectedFilterInOneLineView:(NSNotification *)notif {
+  NSInteger tagId = [notif.object tag];
+  NSLog(@"actionChooseSelectedFilterInOneLineView");
+  
+  if (self.filterTypeId == 1) {
+    switch (tagId) {
+      case 1: {
+        [self createSubcategroryStringWithSubcategory:1];
+        break;
+      }
+      case 2: {
+        [self createSubcategroryStringWithSubcategory:2];
+        break;
+      }
+      case 3: {
+        [self createSubcategroryStringWithSubcategory:3];
+        break;
+      }
+      case 4: {
+        [self createSubcategroryStringWithSubcategory:4];
+        break;
+      }
+        
+      default:
+        break;
+    }
+  } else if (self.filterTypeId == 2) {
+    switch (tagId) {
+      case 1: {
+        [self createSubcategroryStringWithSubcategory:5];
+        break;
+      }
+      case 2: {
+        [self createSubcategroryStringWithSubcategory:6];
+        break;
+      }
+      case 3: {
+        [self createSubcategroryStringWithSubcategory:7];
+        break;
+      }
+      case 4: {
+        [self createSubcategroryStringWithSubcategory:8];
+        break;
+      }
+        
+      default:
+        break;
+    }
+  }
+  
+  [self getCompaniesBySubcategory:self.subcategoryString];
+  
+}
+
+- (void) actionSelectedFilterButtonPressed:(NSNotification *)notif {
+  NSInteger tagId = [notif.object tag];
+  NSLog(@"actionSelectedFilterButtonPressed");
+  
+  /*
+   //Cat = 1 Drinks
+   case Coffee = 1
+   case Hot = 2
+   case Ice = 3
+   case Carry = 4
+   //Cat = 2 Lounge
+   case Beer = 5
+   case Vine = 6
+   case Strong = 7
+   case Hookah = 8
+   //Cat = 3 Food
+   case Pizza = 9
+   case Rolls = 10
+   case Fastfood = 11
+   case Breakfast = 12
+   case Soup = 13
+   case HotFood = 14
+   case Vegan = 15
+   case Exotic = 16
+   case Dessert = 17
+   case Bakery = 18
+   case Delivery = 19
+   case CarryFood = 20
+   }
+   */
+  
+  switch (tagId) {
+    case 1: {
+      [self createSubcategroryStringWithSubcategory:10];
+      break;
+    }
+    case 2: {
+      [self createSubcategroryStringWithSubcategory:9];
+      break;
+    }
+    case 3: {
+      [self createSubcategroryStringWithSubcategory:11];
+      break;
+    }
+    case 4: {
+      [self createSubcategroryStringWithSubcategory:14];
+      break;
+    }
+    case 5: {
+      [self createSubcategroryStringWithSubcategory:13];
+      break;
+    }
+    case 6: {
+      [self createSubcategroryStringWithSubcategory:12];
+      break;
+    }
+    case 7: {
+      [self createSubcategroryStringWithSubcategory:15];
+      break;
+    }
+    case 8: {
+      [self createSubcategroryStringWithSubcategory:16];
+      break;
+    }
+    case 9: {
+      [self createSubcategroryStringWithSubcategory:17];
+      break;
+    }
+    case 10: {
+      [self createSubcategroryStringWithSubcategory:18];
+      break;
+    }
+    case 11: {
+      break;
+    }
+    case 12: {
+      break;
+    }
+      
+    default:
+      break;
+  }
+  
+  [self getCompaniesBySubcategory:self.subcategoryString];
+  
+}
+
+- (void) createSubcategroryStringWithSubcategory:(NSInteger) subcategoryId {
+  
+  NSMutableArray *subcatArray = [NSMutableArray arrayWithArray:[self.subcategoryString componentsSeparatedByString:@","]];
+  NSString *subcatString = [NSString stringWithFormat:@"%ld", (long)subcategoryId];
+  
+  if (subcatArray.count == 1) {
+    if ([subcatArray.firstObject isEqual: @""]) {
+      [subcatArray removeObjectAtIndex:0];
+    }
+  }
+  
+  if ([subcatArray containsObject: subcatString]) {
+    [subcatArray removeObject:subcatString];
+  } else {
+    [subcatArray addObject:subcatString];
+  }
+  
+  NSString *resultString = @"";
+  
+  for (NSString *s in subcatArray) {
+    resultString = [resultString stringByAppendingString:[NSString stringWithFormat:@"%@,", s]];
+  }
+  
+  if (resultString.length > 1) {
+    resultString = [resultString stringByReplacingCharactersInRange:NSMakeRange(resultString.length - 1, 1) withString:@""];
+  } else {
+    resultString = @"";
+  }
+  
+  self.subcategoryString = resultString;
+  
+  NSLog(@"%@", self.subcategoryString);
+  
 }
 
 @end

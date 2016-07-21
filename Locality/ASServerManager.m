@@ -351,7 +351,6 @@
      NSMutableArray *resultPlacesArray = [NSMutableArray array];
      
      for (NSDictionary *placeDict in responseDict) {
-       
        NSLog(@"placeDict = %@", placeDict);
        ASPlace *place = [[ASPlace alloc] initWithServerResponse:placeDict];
        [resultPlacesArray addObject:place];
