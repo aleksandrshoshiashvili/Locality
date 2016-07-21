@@ -44,12 +44,19 @@
   
   self.filterArray = [NSMutableArray array];
   
-  [self setupNotifications];
-  
   [self getCompaniesByLocation];
   
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  [self setupNotifications];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+  [super viewDidDisappear:animated];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];

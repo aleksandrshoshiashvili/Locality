@@ -39,18 +39,12 @@
 
 #pragma mark - Life Cycle
 
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-  
-}
-
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view.
   [self initMap];
   [self initInfoWindowOfMarkerView];
   [self getCompaniesByLocation];
-  [self setupNotifications];
   
   _viewForMap.backgroundColor = appMainColor;
   [self.view insertSubview:(UIView *)self.twoLineFilterView aboveSubview:_mapView];
@@ -60,6 +54,16 @@
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  [self setupNotifications];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+  [super viewDidDisappear:animated];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)dealloc {
