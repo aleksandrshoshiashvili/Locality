@@ -3,14 +3,15 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Карты-->
         <scene sceneID="fnJ-RQ-YPr">
             <objects>
                 <navigationController id="35A-K8-ihE" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="recents" id="Xgi-dy-s2P"/>
+                    <tabBarItem key="tabBarItem" title="Карты" image="map" id="Xgi-dy-s2P"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8g5-BE-nmS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -94,7 +95,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="recents" id="hcD-0C-73G"/>
+                    <tabBarItem key="tabBarItem" title="Карты" image="map" id="hcD-0C-73G"/>
                     <navigationItem key="navigationItem" title="Карта" id="0Fe-38-Rm2"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -465,18 +466,37 @@
                                             <rect key="frame" x="0.0" y="0.0" width="328" height="61"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1.5 км" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tn5-pw-FEn">
-                                                    <rect key="frame" x="8" y="37" width="312" height="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.5 км" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tn5-pw-FEn">
+                                                    <rect key="frame" x="8" y="37" width="312" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Страстной б-р, 4, стр. 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kdr-cR-2kO">
-                                                    <rect key="frame" x="8" y="8" width="312" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Страстной б-р, 4, стр. 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kdr-cR-2kO">
+                                                    <rect key="frame" x="31" y="10" width="289" height="18"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location512.png" translatesAutoresizingMaskIntoConstraints="NO" id="ral-G7-V4I">
+                                                    <rect key="frame" x="8" y="11" width="15" height="15"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="15" id="PvI-V3-OGq"/>
+                                                        <constraint firstAttribute="height" constant="15" id="WAR-IF-4j8"/>
+                                                        <constraint firstAttribute="width" constant="15" id="kyE-Dz-0Rg"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="po4-ZY-B03"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="tn5-pw-FEn" firstAttribute="top" secondItem="ral-G7-V4I" secondAttribute="bottom" constant="11" id="Gev-cN-M65"/>
+                                                <constraint firstItem="ral-G7-V4I" firstAttribute="top" secondItem="7r2-EI-UHX" secondAttribute="topMargin" constant="3" id="PYx-0H-vvQ"/>
+                                                <constraint firstItem="tn5-pw-FEn" firstAttribute="trailing" secondItem="7r2-EI-UHX" secondAttribute="trailingMargin" id="Rno-Dv-aV1"/>
+                                                <constraint firstItem="Kdr-cR-2kO" firstAttribute="leading" secondItem="ral-G7-V4I" secondAttribute="trailing" constant="8" symbolic="YES" id="WEJ-5N-W34"/>
+                                                <constraint firstItem="ral-G7-V4I" firstAttribute="centerY" secondItem="Kdr-cR-2kO" secondAttribute="centerY" id="bPe-rW-eIo"/>
+                                                <constraint firstItem="ral-G7-V4I" firstAttribute="leading" secondItem="tn5-pw-FEn" secondAttribute="leading" id="fBt-ja-d6h"/>
+                                                <constraint firstItem="Kdr-cR-2kO" firstAttribute="trailing" secondItem="7r2-EI-UHX" secondAttribute="trailingMargin" id="pfE-sp-t0K"/>
+                                                <constraint firstItem="ral-G7-V4I" firstAttribute="leading" secondItem="7r2-EI-UHX" secondAttribute="leadingMargin" id="yxq-kR-xCH"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="labelAddress" destination="Kdr-cR-2kO" id="vKO-Se-9az"/>
@@ -502,7 +522,7 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mZy-W8-SW0">
                                                     <rect key="frame" x="12" y="8" width="28" height="27"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ct-Wg-MHn">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ct-Wg-MHn">
                                                     <rect key="frame" x="12" y="43" width="308" height="17"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -637,6 +657,7 @@
     <resources>
         <image name="list512.png" width="25" height="25"/>
         <image name="location512.png" width="40" height="40"/>
+        <image name="map" width="24" height="24"/>
         <image name="tool305.png" width="25" height="25"/>
         <image name="warning" width="512" height="512"/>
     </resources>

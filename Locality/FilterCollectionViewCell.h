@@ -11,5 +11,6 @@
 @interface FilterCollectionViewCell : UICollectionReusableView
 @property (weak, nonatomic) IBOutlet UIButton *buttonFilter;
 @property (weak, nonatomic) IBOutlet UILabel *labelFilterName;
+@property (assign, nonatomic) BOOL isSelectedCell;
 
 @end

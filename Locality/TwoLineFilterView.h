@@ -23,7 +23,8 @@
 @property (nonatomic, assign) id <TwoLineFilterViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame withCount:(NSInteger) count;
-
+- (void)selectAllButtons;
+- (void)deselectAllButtons;
 @end
 
 @protocol TwoLineFilterViewDelegate

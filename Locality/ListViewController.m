@@ -75,6 +75,8 @@
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionChooseSelectedFilterInOneLineView:) name:@"actionChooseFilterInOneLineViewNotification" object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSelectedFilterButtonPressed:) name:@"actionFilterButtonPressedNotification" object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionResetFilters) name:@"actionResetFiltersNotification" object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionDelivery:) name:@"actionDeliverButtonPressedNotification" object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTakeaway:) name:@"actionTakeawayButtonPressedNotification" object:nil];
 }
 
 #pragma mark - Location
@@ -255,7 +257,7 @@
   } else if (self.filterTypeId == 2) {
     self.subcategoryString = @"5,6,7,8";
   } else if (self.filterTypeId == 3) {
-    self.subcategoryString = @"9,10,11,12,13,14,15,16,17,18";
+    self.subcategoryString = @"9,10,11,12,13,14,15,16,17,18,19,20";
   }
   
   [self getCompaniesBySubcategory:self.subcategoryString];
@@ -268,9 +270,36 @@
   NSLog(@"actionCancelCategory");
 }
 
+- (void)actionDelivery:(NSNotification *)notif {
+  NSLog(@"actionDeliver");
+//  UIButton *button = notif.object;
+  
+  [self createSubcategroryStringWithSubcategory:19];
+  
+//  if (button.tintColor == [UIColor whiteColor]) {
+//    button.tintColor = selectFilterColor;
+//  } else {
+//    button.tintColor = [UIColor whiteColor];
+//  }
+}
+
+- (void)actionTakeaway:(NSNotification *)notif {
+  NSLog(@"actionTakeaway");
+//  UIButton *button = notif.object;
+  
+  [self createSubcategroryStringWithSubcategory:20];
+  
+//  if (button.tintColor == [UIColor whiteColor]) {
+//    button.tintColor = selectFilterColor;
+//  } else {
+//    button.tintColor = [UIColor whiteColor];
+//  }
+}
+
 - (void) actionChooseSelectedFilterInOneLineView:(NSNotification *)notif {
   NSInteger tagId = [notif.object tag];
   NSLog(@"actionChooseSelectedFilterInOneLineView");
+//  UIButton *button = notif.object;
   
   if (self.filterTypeId == 1) {
     switch (tagId) {
@@ -318,13 +347,25 @@
     }
   }
   
-  [self getCompaniesBySubcategory:self.subcategoryString];
+  if (self.subcategoryString != nil) {
+    [self getCompaniesBySubcategory:self.subcategoryString];
+  } else {
+    [self getCompaniesByLocation];
+  }
+  
+//  if (button.tintColor == [UIColor whiteColor]) {
+//    button.tintColor = selectFilterColor;
+//  } else {
+//    button.tintColor = [UIColor whiteColor];
+//  }
   
 }
 
 - (void) actionSelectedFilterButtonPressed:(NSNotification *)notif {
   NSInteger tagId = [notif.object tag];
   NSLog(@"actionSelectedFilterButtonPressed");
+  
+//  UIButton *button = notif.object;
   
   /*
    //Cat = 1 Drinks
@@ -405,11 +446,21 @@
       break;
   }
   
-  [self getCompaniesBySubcategory:self.subcategoryString];
+  if (self.subcategoryString != nil) {
+    [self getCompaniesBySubcategory:self.subcategoryString];
+  } else {
+    [self getCompaniesByLocation];
+  }
+  
+//  if (button.tintColor == [UIColor whiteColor]) {
+//    button.tintColor = selectFilterColor;
+//  } else {
+//    button.tintColor = [UIColor whiteColor];
+//  }
   
 }
 
-- (void) createSubcategroryStringWithSubcategory:(NSInteger) subcategoryId {
+- (void)createSubcategroryStringWithSubcategory:(NSInteger) subcategoryId {
   
   NSMutableArray *subcatArray = [NSMutableArray arrayWithArray:[self.subcategoryString componentsSeparatedByString:@","]];
   NSString *subcatString = [NSString stringWithFormat:@"%ld", (long)subcategoryId];
@@ -426,6 +477,10 @@
     [subcatArray addObject:subcatString];
   }
   
+  subcatArray = (NSMutableArray *)[subcatArray sortedArrayUsingDescriptors:
+                      @[[NSSortDescriptor sortDescriptorWithKey:@"intValue"
+                                                      ascending:YES]]];
+  
   NSString *resultString = @"";
   
   for (NSString *s in subcatArray) {
@@ -435,12 +490,12 @@
   if (resultString.length > 1) {
     resultString = [resultString stringByReplacingCharactersInRange:NSMakeRange(resultString.length - 1, 1) withString:@""];
   } else {
-    resultString = @"";
+    resultString = nil;
   }
   
   self.subcategoryString = resultString;
   
-  NSLog(@"%@", self.subcategoryString);
+  NSLog(@"subcategoryString = %@", self.subcategoryString);
   
 }
 

@@ -21,4 +21,8 @@
     // Configure the view for the selected state
 }
 
++ (CGFloat)heightForRowWithShareDescr:(NSString *)shareDescr {
+  return 10;
+}
+
 @end

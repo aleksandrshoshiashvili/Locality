@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TwoLineFilterView">
             <connections>
+                <outlet property="buttonDelivery" destination="ORb-bW-7Di" id="wUX-we-nLO"/>
+                <outlet property="buttonTakeaway" destination="BEd-Mq-YxN" id="HRb-wn-YVo"/>
                 <outlet property="collectionView" destination="Tet-HQ-kSI" id="ZPI-1h-tBX"/>
+                <outlet property="labelDelivery" destination="fkB-jh-1pc" id="ljA-ga-Pqn"/>
+                <outlet property="labelTakeaway" destination="Ley-ZO-AW8" id="Tsd-6i-dWU"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -53,19 +57,21 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BEd-Mq-YxN">
+                <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BEd-Mq-YxN">
                     <rect key="frame" x="257" y="157" width="38" height="38"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <state key="normal" image="takeaway512.png">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
+                    <state key="normal" image="takeaway512.png"/>
+                    <connections>
+                        <action selector="actionTakeawayButtonPressed:" destination="-2" eventType="touchUpInside" id="PJ8-7I-0W9"/>
+                    </connections>
                 </button>
-                <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ORb-bW-7Di">
+                <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ORb-bW-7Di">
                     <rect key="frame" x="257" y="73" width="38" height="38"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <state key="normal" image="delivery512.png">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
+                    <state key="normal" image="delivery512.png"/>
+                    <connections>
+                        <action selector="actionDeliverButtonPressed:" destination="-2" eventType="touchUpInside" id="G0o-Ms-FVi"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RQo-1L-lpw">
                     <rect key="frame" x="235" y="73" width="1" height="143"/>
@@ -74,6 +80,7 @@
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Tet-HQ-kSI">
                     <rect key="frame" x="6" y="63" width="219" height="171"/>
                     <color key="backgroundColor" red="0.27450980390000002" green="0.24313725489999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="P69-Ht-NfA">
                         <size key="itemSize" width="70" height="70"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>

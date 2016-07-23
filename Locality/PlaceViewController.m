@@ -63,7 +63,6 @@ typedef enum {
 //  self.place.uid = @"1";
   [self getPlacesById:self.place.uid];
   
-  
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -132,7 +131,7 @@ typedef enum {
   
   // Add close button - it's pinned to the top right corner, so it doesn't need to respond to bar height changes
   UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  closeButton.frame = CGRectMake(0.0 + 8.0, 30.0, 20.0, 20.0);
+  closeButton.frame = CGRectMake(0.0 + 8.0, 30.0, 25.0, 25.0);
   closeButton.tintColor = [UIColor whiteColor];
   [closeButton setImage:[UIImage imageNamed:@"back512.png"] forState:UIControlStateNormal];
   [closeButton addTarget:self action:@selector(closeViewController:) forControlEvents:UIControlEventTouchUpInside];
@@ -187,7 +186,10 @@ typedef enum {
       return 62.0;
     }
     case PlaceCellTypeDiscount: {
-      return 73.0;
+      ASDiscount *share = [self.place.discountsArray firstObject];
+      CGRect answerFrame = [share.descr boundingRectWithSize:CGSizeMake(240.f, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f]} context:nil];
+      CGSize requiredSize = answerFrame.size;
+      return 73.0 + requiredSize.height - 17.0;
     }
     default: {
       return 29.0;
@@ -217,7 +219,7 @@ typedef enum {
       
       placeAddressCell.labelAddress.text = self.place.address;
       placeAddressCell.labelDistance.text = [NSString stringWithFormat:@"%@ км.", self.place.distance];
-      placeAddressCell.backgroundColor = [UIColor lightGrayColor];
+      placeAddressCell.backgroundColor = [UIColor whiteColor];
       
       return placeAddressCell;
       

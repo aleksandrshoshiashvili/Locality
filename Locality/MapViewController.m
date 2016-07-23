@@ -83,6 +83,8 @@
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionChooseSelectedFilterInOneLineView:) name:@"actionChooseFilterInOneLineViewNotification" object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionSelectedFilterButtonPressed:) name:@"actionFilterButtonPressedNotification" object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionResetFilters) name:@"actionResetFiltersNotification" object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionDelivery:) name:@"actionDeliverButtonPressedNotification" object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTakeaway:) name:@"actionTakeawayButtonPressedNotification" object:nil];
 }
 
 #pragma mark - Map
@@ -413,10 +415,36 @@
   NSLog(@"actionCancelCategory");
 }
 
+- (void)actionDelivery:(NSNotification *)notif {
+  NSLog(@"actionDeliver");
+//  UIButton *button = notif.object;
+  
+  [self createSubcategroryStringWithSubcategory:19];
+  
+//  if (button.tintColor == [UIColor whiteColor]) {
+//    button.tintColor = selectFilterColor;
+//  } else {
+//    button.tintColor = [UIColor whiteColor];
+//  }
+}
+
+- (void)actionTakeaway:(NSNotification *)notif {
+  NSLog(@"actionTakeaway");
+//  UIButton *button = notif.object;
+  
+  [self createSubcategroryStringWithSubcategory:20];
+  
+//  if (button.tintColor == [UIColor whiteColor]) {
+//    button.tintColor = selectFilterColor;
+//  } else {
+//    button.tintColor = [UIColor whiteColor];
+//  }
+}
+
 - (void) actionChooseSelectedFilterInOneLineView:(NSNotification *)notif {
   NSInteger tagId = [notif.object tag];
   NSLog(@"actionChooseSelectedFilterInOneLineView");
-  
+//  UIButton *button = notif.object;
   if (self.filterTypeId == 1) {
     switch (tagId) {
       case 1: {
@@ -463,14 +491,24 @@
     }
   }
   
-  [self getCompaniesBySubcategory:self.subcategoryString];
+  if (self.subcategoryString != nil) {
+    [self getCompaniesBySubcategory:self.subcategoryString];
+  } else {
+    [self getCompaniesByLocation];
+  }
+  
+//  if (button.tintColor == [UIColor whiteColor]) {
+//    button.tintColor = selectFilterColor;
+//  } else {
+//    button.tintColor = [UIColor whiteColor];
+//  }
   
 }
 
 - (void) actionSelectedFilterButtonPressed:(NSNotification *)notif {
   NSInteger tagId = [notif.object tag];
   NSLog(@"actionSelectedFilterButtonPressed");
-  
+//  UIButton *button = notif.object;
   /*
    //Cat = 1 Drinks
    case Coffee = 1
@@ -550,7 +588,17 @@
       break;
   }
   
-  [self getCompaniesBySubcategory:self.subcategoryString];
+  if (self.subcategoryString != nil) {
+    [self getCompaniesBySubcategory:self.subcategoryString];
+  } else {
+    [self getCompaniesByLocation];
+  }
+  
+//  if (button.tintColor == [UIColor whiteColor]) {
+//    button.tintColor = selectFilterColor;
+//  } else {
+//    button.tintColor = [UIColor whiteColor];
+//  }
   
 }
 
@@ -571,6 +619,10 @@
     [subcatArray addObject:subcatString];
   }
   
+  subcatArray = (NSMutableArray *)[subcatArray sortedArrayUsingDescriptors:
+                                   @[[NSSortDescriptor sortDescriptorWithKey:@"intValue"
+                                                                   ascending:YES]]];
+  
   NSString *resultString = @"";
   
   for (NSString *s in subcatArray) {
@@ -580,7 +632,7 @@
   if (resultString.length > 1) {
     resultString = [resultString stringByReplacingCharactersInRange:NSMakeRange(resultString.length - 1, 1) withString:@""];
   } else {
-    resultString = @"";
+    resultString = nil;
   }
   
   self.subcategoryString = resultString;

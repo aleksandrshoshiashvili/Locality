@@ -246,6 +246,17 @@
 
 - (void)actionResetFilters {
   [[NSNotificationCenter defaultCenter] postNotificationName:@"actionResetFiltersNotification" object:nil];
+  
+//  if (self.filterTypeId == 3) {
+//    [self.twoLineFilterView.buttonDelivery setTintColor:[UIColor whiteColor]];
+//    [self.twoLineFilterView.buttonTakeaway setTintColor:[UIColor whiteColor]];
+//    [self.twoLineFilterView deselectAllButtons];
+//  } else {
+//    [self.oneLineFilterView.buttonFirstIcon setTintColor:[UIColor whiteColor]];
+//    [self.oneLineFilterView.buttonSecondIcon setTintColor:[UIColor whiteColor]];
+//    [self.oneLineFilterView.buttonThirdIcon setTintColor:[UIColor whiteColor]];
+//    [self.oneLineFilterView.buttonFourthIcon setTintColor:[UIColor whiteColor]];
+//  }
 }
 
 #pragma mark - Filter Actions
@@ -253,6 +264,18 @@
 - (IBAction)actionChooseAll:(id)sender {
 //  NSLog(@"actionChooseAll");
   [[NSNotificationCenter defaultCenter] postNotificationName:@"actionChooseAllNotification" object:nil];
+  
+//  if (self.filterTypeId == 3) {
+//    [self.twoLineFilterView.buttonDelivery setTintColor:selectFilterColor];
+//    [self.twoLineFilterView.buttonTakeaway setTintColor:selectFilterColor];
+//    [self.twoLineFilterView selectAllButtons];
+//  } else {
+//    [self.oneLineFilterView.buttonFirstIcon setTintColor:selectFilterColor];
+//    [self.oneLineFilterView.buttonSecondIcon setTintColor:selectFilterColor];
+//    [self.oneLineFilterView.buttonThirdIcon setTintColor:selectFilterColor];
+//    [self.oneLineFilterView.buttonFourthIcon setTintColor:selectFilterColor];
+//  }
+  
 }
 
 - (IBAction)actionCancel:(id)sender {
@@ -260,6 +283,17 @@
   [[NSNotificationCenter defaultCenter] postNotificationName:@"actionCancelNotification" object:nil];
   [self hideOneLineFilterView:YES];
   [self hideTwoLineFilterView:YES];
+//  
+//  if (self.filterTypeId == 3) {
+//    [self.twoLineFilterView.buttonDelivery setTintColor:[UIColor whiteColor]];
+//    [self.twoLineFilterView.buttonTakeaway setTintColor:[UIColor whiteColor]];
+//    [self.twoLineFilterView deselectAllButtons];
+//  } else {
+//    [self.oneLineFilterView.buttonFirstIcon setTintColor:[UIColor whiteColor]];
+//    [self.oneLineFilterView.buttonSecondIcon setTintColor:[UIColor whiteColor]];
+//    [self.oneLineFilterView.buttonThirdIcon setTintColor:[UIColor whiteColor]];
+//    [self.oneLineFilterView.buttonFourthIcon setTintColor:[UIColor whiteColor]];
+//  }
 }
 
 - (IBAction)actionChooseFilterInOneLineView:(id)sender {
@@ -288,6 +322,14 @@
 }
 
 #pragma mark - TwoLineFilterViewDelegate
+
+- (IBAction)actionDeliverButtonPressed:(UIButton *)sender {
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"actionDeliverButtonPressedNotification" object:sender];
+}
+
+- (IBAction)actionTakeawayButtonPressed:(UIButton *)sender {
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTakeawayButtonPressedNotification" object:sender];
+}
 
 - (void)actionFilterButtonPressed:(UIButton *)sender {
 //  NSLog(@"actionFilterButtonPressed: %ld", (long)sender.tag);
@@ -361,10 +403,12 @@
 - (void)startLoader {
   [self createAndConfigurateLoader];
   [self.loader showLoader];
+  [self.view setUserInteractionEnabled:NO];
 }
 
 - (void)stopLoader {
   [self.loader removeLoader];
+  [self.view setUserInteractionEnabled:YES];
 }
 
 @end
