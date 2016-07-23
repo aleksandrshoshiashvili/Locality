@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelDiscountsCount;
 @property (weak, nonatomic) IBOutlet UILabel *labelAddress;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewDiscountDot;
+@property (weak, nonatomic) IBOutlet UIView *dicountDotView;
 
 - (id)initWithFrameNew:(CGRect)frame;
 

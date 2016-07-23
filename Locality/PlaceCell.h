@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageViewDiscountDot;
 @property (strong, nonatomic) IBOutlet UILabel *labelAddress;
 @property (strong, nonatomic) IBOutlet UILabel *labelDistance;
+@property (weak, nonatomic) IBOutlet UIView *viewDot;
 
 @property (strong, nonatomic) UIColor *colorDiscount;
 

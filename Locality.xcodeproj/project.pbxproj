@@ -7,7 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		523432451D43AE5F00DBD0B0 /* PQFBallDrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 5234323B1D43AE5F00DBD0B0 /* PQFBallDrop.m */; };
+		523432461D43AE5F00DBD0B0 /* PQFBarsInCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 5234323D1D43AE5F00DBD0B0 /* PQFBarsInCircle.m */; };
+		523432471D43AE5F00DBD0B0 /* PQFBouncingBalls.m in Sources */ = {isa = PBXBuildFile; fileRef = 5234323F1D43AE5F00DBD0B0 /* PQFBouncingBalls.m */; };
+		523432481D43AE5F00DBD0B0 /* PQFCirclesInTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 523432411D43AE5F00DBD0B0 /* PQFCirclesInTriangle.m */; };
+		523432491D43AE5F00DBD0B0 /* PQFLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 523432441D43AE5F00DBD0B0 /* PQFLoader.m */; };
+		5234324D1D43B01000DBD0B0 /* UIColor+FlatColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5234324C1D43B01000DBD0B0 /* UIColor+FlatColors.m */; };
 		5238493B1C5E1B8200FB223A /* SquareCashStyleBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5238493A1C5E1B8200FB223A /* SquareCashStyleBar.m */; };
+		5244AA341D42986A002FF0FF /* ErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5244AA331D42986A002FF0FF /* ErrorView.m */; };
+		5244AA371D42A7C8002FF0FF /* Dot.m in Sources */ = {isa = PBXBuildFile; fileRef = 5244AA361D42A7C8002FF0FF /* Dot.m */; };
 		525B89371C592DED0097E0BD /* ParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 525B89361C592DED0097E0BD /* ParentViewController.m */; };
 		52681B9C1C5A6E5300CC7093 /* PlaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52681B9B1C5A6E5300CC7093 /* PlaceCell.m */; };
 		52681B9E1C5A8D6700CC7093 /* testImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 52681B9D1C5A8D6700CC7093 /* testImage.jpg */; };
@@ -76,8 +84,25 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5234323A1D43AE5F00DBD0B0 /* PQFBallDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFBallDrop.h; sourceTree = "<group>"; };
+		5234323B1D43AE5F00DBD0B0 /* PQFBallDrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQFBallDrop.m; sourceTree = "<group>"; };
+		5234323C1D43AE5F00DBD0B0 /* PQFBarsInCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFBarsInCircle.h; sourceTree = "<group>"; };
+		5234323D1D43AE5F00DBD0B0 /* PQFBarsInCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQFBarsInCircle.m; sourceTree = "<group>"; };
+		5234323E1D43AE5F00DBD0B0 /* PQFBouncingBalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFBouncingBalls.h; sourceTree = "<group>"; };
+		5234323F1D43AE5F00DBD0B0 /* PQFBouncingBalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQFBouncingBalls.m; sourceTree = "<group>"; };
+		523432401D43AE5F00DBD0B0 /* PQFCirclesInTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFCirclesInTriangle.h; sourceTree = "<group>"; };
+		523432411D43AE5F00DBD0B0 /* PQFCirclesInTriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQFCirclesInTriangle.m; sourceTree = "<group>"; };
+		523432421D43AE5F00DBD0B0 /* PQFCustomLoaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFCustomLoaders.h; sourceTree = "<group>"; };
+		523432431D43AE5F00DBD0B0 /* PQFLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFLoader.h; sourceTree = "<group>"; };
+		523432441D43AE5F00DBD0B0 /* PQFLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQFLoader.m; sourceTree = "<group>"; };
+		5234324B1D43B01000DBD0B0 /* UIColor+FlatColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+FlatColors.h"; sourceTree = "<group>"; };
+		5234324C1D43B01000DBD0B0 /* UIColor+FlatColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+FlatColors.m"; sourceTree = "<group>"; };
 		523849391C5E1B8200FB223A /* SquareCashStyleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareCashStyleBar.h; sourceTree = "<group>"; };
 		5238493A1C5E1B8200FB223A /* SquareCashStyleBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareCashStyleBar.m; sourceTree = "<group>"; };
+		5244AA321D42986A002FF0FF /* ErrorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorView.h; sourceTree = "<group>"; };
+		5244AA331D42986A002FF0FF /* ErrorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorView.m; sourceTree = "<group>"; };
+		5244AA351D42A7C8002FF0FF /* Dot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dot.h; sourceTree = "<group>"; };
+		5244AA361D42A7C8002FF0FF /* Dot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dot.m; sourceTree = "<group>"; };
 		525B89351C592DED0097E0BD /* ParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentViewController.h; sourceTree = "<group>"; };
 		525B89361C592DED0097E0BD /* ParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentViewController.m; sourceTree = "<group>"; };
 		52681B9A1C5A6E5300CC7093 /* PlaceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceCell.h; sourceTree = "<group>"; };
@@ -190,6 +215,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		523432391D43AE5F00DBD0B0 /* PQFCustomLoaders */ = {
+			isa = PBXGroup;
+			children = (
+				5234323A1D43AE5F00DBD0B0 /* PQFBallDrop.h */,
+				5234323B1D43AE5F00DBD0B0 /* PQFBallDrop.m */,
+				5234323C1D43AE5F00DBD0B0 /* PQFBarsInCircle.h */,
+				5234323D1D43AE5F00DBD0B0 /* PQFBarsInCircle.m */,
+				5234323E1D43AE5F00DBD0B0 /* PQFBouncingBalls.h */,
+				5234323F1D43AE5F00DBD0B0 /* PQFBouncingBalls.m */,
+				523432401D43AE5F00DBD0B0 /* PQFCirclesInTriangle.h */,
+				523432411D43AE5F00DBD0B0 /* PQFCirclesInTriangle.m */,
+				523432421D43AE5F00DBD0B0 /* PQFCustomLoaders.h */,
+				523432431D43AE5F00DBD0B0 /* PQFLoader.h */,
+				523432441D43AE5F00DBD0B0 /* PQFLoader.m */,
+			);
+			path = PQFCustomLoaders;
+			sourceTree = "<group>";
+		};
+		5234324A1D43B01000DBD0B0 /* UIColor+FlatColors */ = {
+			isa = PBXGroup;
+			children = (
+				5234324B1D43B01000DBD0B0 /* UIColor+FlatColors.h */,
+				5234324C1D43B01000DBD0B0 /* UIColor+FlatColors.m */,
+			);
+			path = "UIColor+FlatColors";
+			sourceTree = "<group>";
+		};
 		525B89341C592DB30097E0BD /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +256,10 @@
 				52AEF2E51C5C3DDA0035021A /* InfoWindowOfMarkerView.xib */,
 				523849391C5E1B8200FB223A /* SquareCashStyleBar.h */,
 				5238493A1C5E1B8200FB223A /* SquareCashStyleBar.m */,
+				5244AA321D42986A002FF0FF /* ErrorView.h */,
+				5244AA331D42986A002FF0FF /* ErrorView.m */,
+				5244AA351D42A7C8002FF0FF /* Dot.h */,
+				5244AA361D42A7C8002FF0FF /* Dot.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -344,6 +400,8 @@
 		604A28451C34B3DE0002FD70 /* Locality */ = {
 			isa = PBXGroup;
 			children = (
+				5234324A1D43B01000DBD0B0 /* UIColor+FlatColors */,
+				523432391D43AE5F00DBD0B0 /* PQFCustomLoaders */,
 				52681BBA1C5AB97E00CC7093 /* MEExpandableHeaderView */,
 				52A4F7F41C34B66E006E6D7A /* icons */,
 				52A45EDC1C5C0D270018CA43 /* Constants.h */,
@@ -556,13 +614,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				52A0CAF41C63FA0100CEA4F2 /* PlaceAddressCell.m in Sources */,
+				523432481D43AE5F00DBD0B0 /* PQFCirclesInTriangle.m in Sources */,
+				523432461D43AE5F00DBD0B0 /* PQFBarsInCircle.m in Sources */,
 				52A4F8371C34C2F3006E6D7A /* CityTableViewController.m in Sources */,
 				52AEF2E41C5C3DBE0035021A /* InfoWindowOfMarkerView.m in Sources */,
 				5292D3BA1C5C790100D50974 /* FilterCollectionViewCell.m in Sources */,
 				52EE9B251CCAC45D0008C92E /* PlaceMainDiscountCell.m in Sources */,
 				52681B9C1C5A6E5300CC7093 /* PlaceCell.m in Sources */,
 				52DED0E61D37B01500692396 /* ASCity.m in Sources */,
+				5244AA341D42986A002FF0FF /* ErrorView.m in Sources */,
+				5234324D1D43B01000DBD0B0 /* UIColor+FlatColors.m in Sources */,
 				52681BC11C5AB97E00CC7093 /* UIImage+ImageEffects.m in Sources */,
+				523432451D43AE5F00DBD0B0 /* PQFBallDrop.m in Sources */,
 				52681BA51C5AADB400CC7093 /* PlaceViewController.m in Sources */,
 				52EA713E1C57F3E50016AA4F /* OneLineFilterView.m in Sources */,
 				5292D3B51C5C6ED300D50974 /* TwoLineFilterView.m in Sources */,
@@ -575,9 +638,12 @@
 				52681BB01C5AB34000CC7093 /* ASPlace.m in Sources */,
 				604A284B1C34B3DE0002FD70 /* AppDelegate.m in Sources */,
 				52681BB61C5AB37200CC7093 /* ASFeatures.m in Sources */,
+				523432471D43AE5F00DBD0B0 /* PQFBouncingBalls.m in Sources */,
 				604A28481C34B3DE0002FD70 /* main.m in Sources */,
 				52EE9B281CCAC46F0008C92E /* PlaceDiscountCell.m in Sources */,
 				52A4F8311C34BA2F006E6D7A /* SettingViewController.m in Sources */,
+				523432491D43AE5F00DBD0B0 /* PQFLoader.m in Sources */,
+				5244AA371D42A7C8002FF0FF /* Dot.m in Sources */,
 				52A4F83B1C34D016006E6D7A /* MapViewController.m in Sources */,
 				52681BAA1C5AB25300CC7093 /* ASServerManager.m in Sources */,
 				525B89371C592DED0097E0BD /* ParentViewController.m in Sources */,

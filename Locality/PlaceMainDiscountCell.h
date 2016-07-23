@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *discountLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *discountTypeImageView;
 @property (weak, nonatomic) IBOutlet UILabel *discountDesctLabel;
+@property (weak, nonatomic) IBOutlet UIView *discountTypeView;
 
 @end

@@ -58,6 +58,14 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bCZ-hc-bE7">
+                    <rect key="frame" x="8" y="43" width="10" height="10"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="10" id="SoT-1q-QQN"/>
+                        <constraint firstAttribute="height" constant="10" id="kgd-Ee-saY"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.27450980390000002" green="0.24313725489999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -66,24 +74,35 @@
                 <constraint firstItem="ShG-Hk-4v8" firstAttribute="leading" secondItem="Fi7-KM-oJK" secondAttribute="trailing" constant="8" symbolic="YES" id="8kg-2t-EPh"/>
                 <constraint firstItem="iBh-4B-Lie" firstAttribute="trailing" secondItem="gQn-Hm-yJc" secondAttribute="trailing" id="ErY-KG-MwQ"/>
                 <constraint firstItem="1Cd-eJ-miE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="GKr-cu-a9g"/>
+                <constraint firstItem="bCZ-hc-bE7" firstAttribute="leading" secondItem="1Cd-eJ-miE" secondAttribute="leading" id="I8i-Zy-3Lf"/>
                 <constraint firstItem="iBh-4B-Lie" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="In0-IX-d0f"/>
+                <constraint firstItem="bCZ-hc-bE7" firstAttribute="centerY" secondItem="ShG-Hk-4v8" secondAttribute="centerY" id="IzT-RE-WHl"/>
                 <constraint firstItem="ShG-Hk-4v8" firstAttribute="top" secondItem="1Cd-eJ-miE" secondAttribute="bottom" constant="8" symbolic="YES" id="J1n-zV-K91"/>
                 <constraint firstItem="1Cd-eJ-miE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="LBc-GL-FkE"/>
                 <constraint firstItem="iBh-4B-Lie" firstAttribute="trailing" secondItem="ShG-Hk-4v8" secondAttribute="trailing" id="PHh-s5-z0F"/>
                 <constraint firstItem="iBh-4B-Lie" firstAttribute="leading" secondItem="gQn-Hm-yJc" secondAttribute="leading" id="Pkm-pd-s4X"/>
                 <constraint firstItem="Fi7-KM-oJK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="43" id="RHS-dM-Uvt"/>
+                <constraint firstItem="ShG-Hk-4v8" firstAttribute="leading" secondItem="bCZ-hc-bE7" secondAttribute="trailing" constant="8" symbolic="YES" id="SYg-JA-xDN"/>
                 <constraint firstItem="1Cd-eJ-miE" firstAttribute="baseline" secondItem="pSQ-gv-6qS" secondAttribute="baseline" id="Z03-ww-k7h"/>
                 <constraint firstItem="iBh-4B-Lie" firstAttribute="centerY" secondItem="8GZ-6i-caL" secondAttribute="centerY" id="fhk-iA-10G"/>
+                <constraint firstAttribute="bottom" secondItem="bCZ-hc-bE7" secondAttribute="bottom" constant="57" id="hlT-aM-BPY"/>
                 <constraint firstItem="8GZ-6i-caL" firstAttribute="top" secondItem="Fi7-KM-oJK" secondAttribute="bottom" constant="39" id="hvR-hz-frx"/>
                 <constraint firstItem="1Cd-eJ-miE" firstAttribute="leading" secondItem="8GZ-6i-caL" secondAttribute="leading" id="jDv-aF-Nwn"/>
                 <constraint firstItem="iBh-4B-Lie" firstAttribute="leading" secondItem="8GZ-6i-caL" secondAttribute="trailing" constant="8" symbolic="YES" id="uzr-y6-63j"/>
                 <constraint firstItem="iBh-4B-Lie" firstAttribute="top" secondItem="gQn-Hm-yJc" secondAttribute="bottom" constant="8" symbolic="YES" id="x0d-Xb-szv"/>
                 <constraint firstItem="iBh-4B-Lie" firstAttribute="leading" secondItem="ShG-Hk-4v8" secondAttribute="leading" id="yZ9-VZ-73u"/>
                 <constraint firstItem="iBh-4B-Lie" firstAttribute="trailing" secondItem="pSQ-gv-6qS" secondAttribute="trailing" id="zLa-Sd-5JT"/>
+                <constraint firstItem="8GZ-6i-caL" firstAttribute="top" secondItem="bCZ-hc-bE7" secondAttribute="bottom" constant="39" id="zki-cd-inD"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="Fi7-KM-oJK"/>
+                </mask>
+            </variation>
             <connections>
+                <outlet property="dicountDotView" destination="bCZ-hc-bE7" id="LYX-7x-ftl"/>
                 <outlet property="imageViewDiscountDot" destination="Fi7-KM-oJK" id="y9j-XS-B3f"/>
                 <outlet property="labelAddress" destination="iBh-4B-Lie" id="LZx-Kk-RWk"/>
                 <outlet property="labelDiscountName" destination="ShG-Hk-4v8" id="8pR-cg-gGj"/>

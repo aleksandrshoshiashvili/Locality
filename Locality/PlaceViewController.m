@@ -26,6 +26,8 @@
 
 #import "ASServerManager.h"
 
+#import "PQFCustomLoaders.h"
+
 typedef enum {
   PlaceCellTypeAddress,
   PlaceCellTypeDiscount
@@ -38,6 +40,7 @@ typedef enum {
 @property (nonatomic) BLKDelegateSplitter *delegateSplitter;
 @property(nonatomic, strong) MEExpandableHeaderView *headerView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) PQFCirclesInTriangle *loader;
 
 @end
 
@@ -55,8 +58,9 @@ typedef enum {
   //    self.myCustomBar = [[SquareCashStyleBar alloc] initWithFrame:CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.frame), 100.0)];
   
   //#import <SDWebImage/UIImageView+WebCache.h>
-  self.place = [[ASPlace alloc] init];
-  self.place.uid = @"1";
+  
+//  self.place = [[ASPlace alloc] init];
+//  self.place.uid = @"1";
   [self getPlacesById:self.place.uid];
   
   
@@ -149,12 +153,14 @@ typedef enum {
 }
 
 - (void)getPlacesById:(NSString *)placeId {
-  
+  [self startLoader];
   [[ASServerManager sharedManager] getCompanyWithId:placeId latitude:self.myLocation.coordinate.latitude longtitude:self.myLocation.coordinate.longitude onSuccess:^(ASPlace *place) {
     self.place = place;
     [self getSharesByIdString];
     [self setupViews];
+    [self stopLoader];
   } onFailure:^(NSError *error, NSInteger statusCode) {
+    [self stopLoader];
     NSLog(@"getCompanyWithId error = %@, statsuCode = %ld", error.localizedDescription, (long)statusCode);
   }];
   
@@ -210,7 +216,7 @@ typedef enum {
       }
       
       placeAddressCell.labelAddress.text = self.place.address;
-      placeAddressCell.labelDistance.text = [NSString stringWithFormat:@"%@ м.", self.place.distance];
+      placeAddressCell.labelDistance.text = [NSString stringWithFormat:@"%@ км.", self.place.distance];
       placeAddressCell.backgroundColor = [UIColor lightGrayColor];
       
       return placeAddressCell;
@@ -229,6 +235,20 @@ typedef enum {
       placeMaintDiscountCell.discountLabel.text = share.name;
       placeMaintDiscountCell.discountDesctLabel.text = share.descr;
       
+      /*
+       //Cat = 1 Drinks
+       //Cat = 2 Lounge
+       //Cat = 3 Food
+      */
+      
+      if ([share.category isEqualToString:@"1"]) {
+        [self redDot:placeMaintDiscountCell.discountTypeView];
+      } else if ([share.category isEqualToString:@"2"]) {
+        [self blueDot:placeMaintDiscountCell.discountTypeView];
+      } else {
+        [self greenDot:placeMaintDiscountCell.discountTypeView];
+      }
+      
       return placeMaintDiscountCell;
       
       break;
@@ -246,6 +266,14 @@ typedef enum {
       
       placeDicountCell.discountLabel.text = share.name;
       placeDicountCell.backgroundColor = [UIColor whiteColor];
+      
+      if ([share.category isEqualToString:@"1"]) {
+        [self redDot:placeDicountCell.discountTypeView];
+      } else if ([share.category isEqualToString:@"2"]) {
+        [self blueDot:placeDicountCell.discountTypeView];
+      } else {
+        [self greenDot:placeDicountCell.discountTypeView];
+      }
       
       return placeDicountCell;
       
@@ -300,5 +328,48 @@ typedef enum {
 //- (UIStatusBarStyle)preferredStatusBarStyle {
 //    return UIStatusBarStyleLightContent;
 //}
+
+#pragma mark - LoaderView Func
+
+- (void)createAndConfigurateLoader {
+  self.loader = [PQFCirclesInTriangle createModalLoader];
+  self.loader.loaderColor = [UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1.0];
+  self.loader.maxDiam = 100;
+}
+
+- (void)startLoader {
+  [self createAndConfigurateLoader];
+  [self.loader showLoader];
+}
+
+- (void)stopLoader {
+  [self.loader removeLoader];
+}
+
+#pragma mark - Helpers Dot
+
+- (void)whiteDot:(UIView *)sender {
+  sender.backgroundColor = [UIColor whiteColor];
+  sender.layer.cornerRadius = sender.frame.size.height / 2.0;
+  sender.clipsToBounds = YES;
+}
+
+- (void)redDot:(UIView *)sender {
+  sender.backgroundColor = redDotColor;
+  sender.layer.cornerRadius = sender.frame.size.height / 2.0;
+  sender.clipsToBounds = YES;
+}
+
+- (void)greenDot:(UIView *)sender {
+  sender.backgroundColor = greenDotColor;
+  sender.layer.cornerRadius = sender.frame.size.height / 2.0;
+  sender.clipsToBounds = YES;
+}
+
+- (void)blueDot:(UIView *)sender {
+  sender.backgroundColor = blueDotColor;
+  sender.layer.cornerRadius = sender.frame.size.height / 2.0;
+  sender.clipsToBounds = YES;
+}
 
 @end

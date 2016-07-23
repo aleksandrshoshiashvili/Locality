@@ -9,6 +9,7 @@
 #import "ParentViewController.h"
 #import "OneLineFilterView.h"
 #import "TwoLineFilterView.h"
+#import "Dot.h"
 
 @interface ParentViewController () <TwoLineFilterViewDelegate>
 
@@ -347,6 +348,23 @@
   } else {
     self.fakeView.hidden = YES;
   }
+}
+
+#pragma mark - LoaderView Func
+
+- (void)createAndConfigurateLoader {
+  self.loader = [PQFCirclesInTriangle createModalLoader];
+  self.loader.loaderColor = [UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1.0];
+  self.loader.maxDiam = 100;
+}
+
+- (void)startLoader {
+  [self createAndConfigurateLoader];
+  [self.loader showLoader];
+}
+
+- (void)stopLoader {
+  [self.loader removeLoader];
 }
 
 @end

@@ -33,6 +33,8 @@
 @property (strong, nonatomic) CLLocation *myLocation;
 @property (weak, nonatomic) IBOutlet UIView *errorView;
 
+@property (strong, nonnull) ASPlace *lastSelectedPlace;
+
 @end
 
 @implementation MapViewController
@@ -136,29 +138,35 @@
 #pragma mark - Load Companies
 
 - (void)getCompaniesByLocation {
+  [super startLoader];
   [[ASServerManager sharedManager] getCompaniesByLatitude:self.myLocation.coordinate.latitude longtitude:self.myLocation.coordinate.longitude onSuccess:^(NSArray *array) {
     self.placesArray = [NSArray arrayWithArray:array];
     self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
     self.errorView.hidden = YES;
     [self createPins];
+    [self stopLoader];
   } onFailure:^(NSError *error, NSInteger statusCode) {
     if (statusCode == 200 || error.localizedDescription == nil) {
       self.errorView.hidden = NO;
     }
+    [self stopLoader];
     NSLog(@"getCompaniesByLatitude error = %@, statusCode = %ld", error.localizedDescription, (long)statusCode);
   }];
 }
 
 - (void)getCompaniesBySubcategory:(NSString *)subcat {
+  [super startLoader];
   [[ASServerManager sharedManager] getCompaniesByLatitude:self.myLocation.coordinate.latitude longtitude:self.myLocation.coordinate.longitude category:[NSString stringWithFormat:@"%ld", (long)self.filterTypeId] subcategory:subcat onSuccess:^(NSArray *array) {
     self.placesArray = [NSArray arrayWithArray:array];
     self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
     self.errorView.hidden = YES;
     [self createPins];
+    [self stopLoader];
   } onFailure:^(NSError *error, NSInteger statusCode) {
     if (statusCode == 200 || error.localizedDescription == nil) {
       self.errorView.hidden = NO;
     }
+    [self stopLoader];
     NSLog(@"getCompaniesByLatitude error = %@, statusCode = %ld", error.localizedDescription, (long)statusCode);
   }];
 }
@@ -239,6 +247,7 @@
 - (void)configurateInfoWindowWithMarker:(GMSMarker *)marker {
   
   ASPlace *place = marker.userData;
+  self.lastSelectedPlace = place;
   
   [[ASServerManager sharedManager] getSharesBySharesIdString:place.sharesString onSuccess:^(NSArray *array) {
     place.discountsArray = [NSArray arrayWithArray:array];
@@ -246,6 +255,17 @@
     dispatch_async(dispatch_get_main_queue(), ^{
       ASDiscount *discount = [place.discountsArray firstObject];
       _infoWindow.labelDiscountName.text = discount.name;
+      _infoWindow.dicountDotView.layer.cornerRadius = _infoWindow.dicountDotView.frame.size.height / 2.0;
+      _infoWindow.dicountDotView.clipsToBounds = YES;
+      
+      if ([discount.category isEqualToString:@"1"]) {
+        [self redDot:_infoWindow.dicountDotView];
+      } else if ([discount.category isEqualToString:@"2"]) {
+        [self blueDot:_infoWindow.dicountDotView];
+      } else {
+        [self greenDot:_infoWindow.dicountDotView];
+      }
+      
     });
     
   } onFailure:^(NSError *error, NSInteger statusCode) {
@@ -254,7 +274,7 @@
   
   _infoWindow.labelPlaceName.text = place.name;
   _infoWindow.labelAddress.text = place.address;
-  _infoWindow.labelDistance.text = [NSString stringWithFormat:@"%@ м.", place.distance];
+  _infoWindow.labelDistance.text = [NSString stringWithFormat:@"%@ км.", place.distance];
   _infoWindow.labelDiscountsCount.text = place.sharesCountString;
   
 }
@@ -313,6 +333,8 @@
 - (void)actionInfoWindowDidSelected {
   
   PlaceViewController *vc = [[self storyboard] instantiateViewControllerWithIdentifier:@"PlaceViewController"];
+  vc.place = self.lastSelectedPlace;
+  vc.myLocation = self.myLocation;
   [self.navigationController pushViewController:vc animated:YES];
   
 }
@@ -565,6 +587,33 @@
   
   NSLog(@"%@", self.subcategoryString);
   
+}
+
+
+#pragma mark - Helpers Dot
+
+- (void)whiteDot:(UIView *)sender {
+  sender.backgroundColor = [UIColor whiteColor];
+  sender.layer.cornerRadius = sender.frame.size.height / 2.0;
+  sender.clipsToBounds = YES;
+}
+
+- (void)redDot:(UIView *)sender {
+  sender.backgroundColor = redDotColor;
+  sender.layer.cornerRadius = sender.frame.size.height / 2.0;
+  sender.clipsToBounds = YES;
+}
+
+- (void)greenDot:(UIView *)sender {
+  sender.backgroundColor = greenDotColor;
+  sender.layer.cornerRadius = sender.frame.size.height / 2.0;
+  sender.clipsToBounds = YES;
+}
+
+- (void)blueDot:(UIView *)sender {
+  sender.backgroundColor = blueDotColor;
+  sender.layer.cornerRadius = sender.frame.size.height / 2.0;
+  sender.clipsToBounds = YES;
 }
 
 @end

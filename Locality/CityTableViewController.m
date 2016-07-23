@@ -10,10 +10,12 @@
 #import "Constants.h"
 #import "ASServerManager.h"
 #import "ASCity.h"
+#import "PQFCustomLoaders.h"
 
 @interface CityTableViewController ()
 
 @property (strong, nonatomic) NSArray *cityArray;
+@property (strong, nonatomic) PQFCirclesInTriangle *loader;
 
 @end
 
@@ -22,10 +24,13 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  [self startLoader];
   [[ASServerManager sharedManager] getCitiesOnSuccess:^(NSArray *array) {
     self.cityArray = [NSArray arrayWithArray:array];
     [self.tableView reloadData];
+    [self stopLoader];
   } onFailure:^(NSError *error, NSInteger statusCode) {
+    [self stopLoader];
     NSLog(@"getCitiesOnSuccess fail");
   }];
   
@@ -79,6 +84,23 @@
   [[NSNotificationCenter defaultCenter] postNotificationName:kCityNotification object:nil];
   
   [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - LoaderView Func
+
+- (void)createAndConfigurateLoader {
+  self.loader = [PQFCirclesInTriangle createModalLoader];
+  self.loader.loaderColor = [UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1.0];
+  self.loader.maxDiam = 100;
+}
+
+- (void)startLoader {
+  [self createAndConfigurateLoader];
+  [self.loader showLoader];
+}
+
+- (void)stopLoader {
+  [self.loader removeLoader];
 }
 
 @end
