@@ -33,7 +33,9 @@
 @property (strong, nonatomic) CLLocation *myLocation;
 @property (weak, nonatomic) IBOutlet UIView *errorView;
 
-@property (strong, nonnull) ASPlace *lastSelectedPlace;
+@property (strong, nonatomic) ASPlace *lastSelectedPlace;
+
+@property (strong, nonatomic) NSMutableArray *markersArray;
 
 @end
 
@@ -46,7 +48,12 @@
   // Do any additional setup after loading the view.
   [self initMap];
   [self initInfoWindowOfMarkerView];
-  [self getCompaniesByLocation];
+  
+  self.markersArray = [NSMutableArray array];
+  
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [self getCompaniesByLocation];
+  });
   
   _viewForMap.backgroundColor = appMainColor;
   [self.view insertSubview:(UIView *)self.twoLineFilterView aboveSubview:_mapView];
@@ -141,6 +148,7 @@
 
 - (void)getCompaniesByLocation {
   [super startLoader];
+  [self deleteMarkers];
   [[ASServerManager sharedManager] getCompaniesByLatitude:self.myLocation.coordinate.latitude longtitude:self.myLocation.coordinate.longitude onSuccess:^(NSArray *array) {
     self.placesArray = [NSArray arrayWithArray:array];
     self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
@@ -158,6 +166,7 @@
 
 - (void)getCompaniesBySubcategory:(NSString *)subcat {
   [super startLoader];
+  [self deleteMarkers];
   [[ASServerManager sharedManager] getCompaniesByLatitude:self.myLocation.coordinate.latitude longtitude:self.myLocation.coordinate.longitude category:[NSString stringWithFormat:@"%ld", (long)self.filterTypeId] subcategory:subcat onSuccess:^(NSArray *array) {
     self.placesArray = [NSArray arrayWithArray:array];
     self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
@@ -197,6 +206,8 @@
   //    marker.title = @"Somewhere";
   marker.userData = place;
   
+  [self.markersArray addObject:marker];
+  
 }
 
 - (void)setMarkerWithPlace:(ASPlace *)place style:(PlaceStyleType)styleType {
@@ -231,6 +242,8 @@
   marker.flat = YES;
   marker.userData = place;
   
+  [self.markersArray addObject:marker];
+  
 }
 
 #pragma mark - InfoWindowOfMarkerView
@@ -260,9 +273,9 @@
       _infoWindow.dicountDotView.layer.cornerRadius = _infoWindow.dicountDotView.frame.size.height / 2.0;
       _infoWindow.dicountDotView.clipsToBounds = YES;
       
-      if ([discount.category isEqualToString:@"1"]) {
+      if ([discount.categoryId isEqualToString:@"1"]) {
         [self redDot:_infoWindow.dicountDotView];
-      } else if ([discount.category isEqualToString:@"2"]) {
+      } else if ([discount.categoryId isEqualToString:@"2"]) {
         [self blueDot:_infoWindow.dicountDotView];
       } else {
         [self greenDot:_infoWindow.dicountDotView];
@@ -365,6 +378,13 @@
   
   
   
+}
+
+- (void)deleteMarkers {
+  for (GMSMarker *marker in self.markersArray) {
+    marker.map = nil;
+  }
+  self.markersArray = [NSMutableArray array];
 }
 
 #pragma mark - KVO updates

@@ -18,7 +18,7 @@
     self.name = [responseObject objectForKey:@"name"];
     self.descr = [responseObject objectForKey:@"description"];
     self.companyId = [responseObject objectForKey:@"company_id"];
-    self.categoryId = [responseObject objectForKey:@"category_id"];
+    self.categoryId = [[responseObject objectForKey:@"category_id"] stringValue];
     self.specialStatus = [responseObject objectForKey:@"special_status"];
 //    
 //    self.category = [responseObject objectForKey:@"category"];

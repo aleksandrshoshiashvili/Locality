@@ -63,6 +63,8 @@ typedef enum {
 //  self.place.uid = @"1";
   [self getPlacesById:self.place.uid];
   
+  self.tableView.allowsSelection = NO;
+  
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -192,7 +194,10 @@ typedef enum {
       return 73.0 + requiredSize.height - 17.0;
     }
     default: {
-      return 29.0;
+      ASDiscount *share = [self.place.discountsArray objectAtIndex:indexPath.row - 2];
+      CGRect answerFrame = [share.descr boundingRectWithSize:CGSizeMake(240.f, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f]} context:nil];
+      CGSize requiredSize = answerFrame.size;
+      return 29.0 + requiredSize.height - 20.0;
     }
   }
 }
@@ -243,9 +248,9 @@ typedef enum {
        //Cat = 3 Food
       */
       
-      if ([share.category isEqualToString:@"1"]) {
+      if ([share.categoryId isEqualToString:@"1"]) {
         [self redDot:placeMaintDiscountCell.discountTypeView];
-      } else if ([share.category isEqualToString:@"2"]) {
+      } else if ([share.categoryId isEqualToString:@"2"]) {
         [self blueDot:placeMaintDiscountCell.discountTypeView];
       } else {
         [self greenDot:placeMaintDiscountCell.discountTypeView];

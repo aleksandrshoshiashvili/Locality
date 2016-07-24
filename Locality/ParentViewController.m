@@ -83,7 +83,7 @@
   UIButton *coctailBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
   UIButton *foodBtn = [[UIButton alloc] initWithFrame:CGRectMake(40, 0, 30, 30)];
   [coctailBtn setImage:[UIImage imageNamed:@"cocktail_filled512.png"] forState:UIControlStateNormal];
-  [foodBtn setImage:[UIImage imageNamed:@"food_filled512.png"] forState:UIControlStateNormal];
+  [foodBtn setImage:[UIImage imageNamed:@"food_new"] forState:UIControlStateNormal];
   
   UIBarButtonItem *coctailBarBtn = [[UIBarButtonItem alloc] initWithCustomView:coctailBtn];
   UIBarButtonItem *foodBarBtn = [[UIBarButtonItem alloc] initWithCustomView:foodBtn];
@@ -95,7 +95,7 @@
   
   UIButton *coffeeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
   UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(40, 0, 30, 30)];
-  [coffeeBtn setImage:[UIImage imageNamed:@"drinks512.png"] forState:UIControlStateNormal];
+  [coffeeBtn setImage:[UIImage imageNamed:@"coffee_new"] forState:UIControlStateNormal];
   [closeBtn setImage:[UIImage imageNamed:@"delete512.png"] forState:UIControlStateNormal];
   
   [coffeeBtn addTarget:self action:@selector(actionOpenCoffee:) forControlEvents:UIControlEventTouchUpInside];
