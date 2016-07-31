@@ -23,8 +23,6 @@
     self.photosString = [responseObject objectForKey:@"photos"];
     self.sharesString = [responseObject objectForKey:@"shares"];
     self.distance = [responseObject objectForKey:@"distance"];
-
-    
     
 //    self.address = [responseObject objectForKey:@"address"];
 //    self.distance = [responseObject objectForKey:@"distance"];
