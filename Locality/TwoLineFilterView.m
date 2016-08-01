@@ -10,7 +10,7 @@
 #import "FilterCollectionViewCell.h"
 #import "Constants.h"
 
-@interface TwoLineFilterView () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface TwoLineFilterView () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate>
 
 @property (assign, nonatomic) NSInteger countOfCells;
 @property (strong, nonatomic) UIPageControl *pageControl;
@@ -47,6 +47,8 @@
     
     [self.buttonDelivery setTintColor:[UIColor whiteColor]];
     [self.buttonTakeaway setTintColor:[UIColor whiteColor]];
+    [self.buttonDelivery setTag:20];
+    [self.buttonTakeaway setTag:19];
     
   }
   return self;
@@ -209,6 +211,12 @@
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
   return UIEdgeInsetsMake(5, 5, 5, 5);
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+  [self.delegate collectionViewDidScroll];
 }
 
 @end

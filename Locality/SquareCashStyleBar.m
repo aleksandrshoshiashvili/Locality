@@ -143,6 +143,9 @@
   // Add and configure profile image
   UIImageView *profileImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"testImage.jpg"]];
   profileImageView.contentMode = UIViewContentModeScaleToFill;
+//  [profileImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"testImage.jpg"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//    profileImageView.frame = CGRectMake(profileImageView.frame.origin.x, profileImageView.frame.origin.y, profileImageView.frame.size.width, profileImageView.frame.size.height);
+//  }];
   [profileImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"testImage.jpg"]];
   
   BLKFlexibleHeightBarSubviewLayoutAttributes *initialProfileImageViewLayoutAttributes = [[BLKFlexibleHeightBarSubviewLayoutAttributes alloc] init];
@@ -158,6 +161,7 @@
   [profileImageView addLayoutAttributes:finalProfileImageViewLayoutAttributes forProgress:1.0];
   
   [self addSubview:profileImageView];
+  self.placeImageView = profileImageView;
   
   [self insertSubview:profileImageView belowSubview:nameLabel];
   

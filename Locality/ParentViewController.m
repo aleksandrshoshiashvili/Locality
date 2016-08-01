@@ -10,6 +10,7 @@
 #import "OneLineFilterView.h"
 #import "TwoLineFilterView.h"
 #import "Dot.h"
+#import "FilterCollectionViewCell.h"
 
 @interface ParentViewController () <TwoLineFilterViewDelegate>
 
@@ -149,6 +150,8 @@
   
   self.fakeView.hidden = NO;
   
+  [self configurateButtonsWithSubcategoryIds];
+  
   [UIView animateWithDuration:animateDuration animations:^{
     self.navigationController.navigationBar.alpha = 0.0;
     self.oneLineFilterView.alpha = 1.0;
@@ -190,6 +193,8 @@
   
   self.fakeView.hidden = NO;
   
+  [self configurateButtonsWithSubcategoryIds];
+  
   [UIView animateWithDuration:animateDuration animations:^{
     self.navigationController.navigationBar.alpha = 0.0;
     self.twoLineFilterView.alpha = 1.0;
@@ -222,29 +227,28 @@
 - (void)actionOpenCoctail:(id)sender {
   
   [self.oneLineFilterView changeFilterType:OneLineFilterTypeLounge];
-  
-  [self showOneLineFilterView:YES];
   self.filterTypeId = 2;
+  [self showOneLineFilterView:YES];
   
 }
 
 - (void)actionOpenCoffee:(id)sender {
   
   [self.oneLineFilterView changeFilterType:OneLineFilterTypeDrinks];
-  
-  [self showOneLineFilterView:YES];
   self.filterTypeId = 1;
+  [self showOneLineFilterView:YES];
+  
   
 }
 
 - (void)actionOpenFood:(id)sender {
-  
-  [self showTwoLineFilterView:YES];
   self.filterTypeId = 3;
-  
+  [self showTwoLineFilterView:YES];
 }
 
 - (void)actionResetFilters {
+  self.subcategoryString = @"";
+  [self configurateButtonsWithSubcategoryIds];
   [[NSNotificationCenter defaultCenter] postNotificationName:@"actionResetFiltersNotification" object:nil];
   
 //  if (self.filterTypeId == 3) {
@@ -263,6 +267,14 @@
 
 - (IBAction)actionChooseAll:(id)sender {
 //  NSLog(@"actionChooseAll");
+  if (self.filterTypeId == 1) {
+    self.subcategoryString = @"1,2,3,4";
+  } else if (self.filterTypeId == 2) {
+    self.subcategoryString = @"5,6,7,8";
+  } else if (self.filterTypeId == 3) {
+    self.subcategoryString = @"9,10,11,12,13,14,15,16,17,18,19,20";
+  }
+  [self configurateButtonsWithSubcategoryIds];
   [[NSNotificationCenter defaultCenter] postNotificationName:@"actionChooseAllNotification" object:nil];
   
 //  if (self.filterTypeId == 3) {
@@ -280,9 +292,12 @@
 
 - (IBAction)actionCancel:(id)sender {
 //  NSLog(@"actionCancel");
+  self.subcategoryString = @"";
+  [self configurateButtonsWithSubcategoryIds];
   [[NSNotificationCenter defaultCenter] postNotificationName:@"actionCancelNotification" object:nil];
   [self hideOneLineFilterView:YES];
   [self hideTwoLineFilterView:YES];
+  
 //  
 //  if (self.filterTypeId == 3) {
 //    [self.twoLineFilterView.buttonDelivery setTintColor:[UIColor whiteColor]];
@@ -323,11 +338,19 @@
 
 #pragma mark - TwoLineFilterViewDelegate
 
+- (void)collectionViewDidScroll {
+  [self configurateButtonsWithSubcategoryIds];
+}
+
 - (IBAction)actionDeliverButtonPressed:(UIButton *)sender {
+  [self createSubcategroryStringWithSubcategory:19];
+  [self configurateButtonsWithSubcategoryIds];
   [[NSNotificationCenter defaultCenter] postNotificationName:@"actionDeliverButtonPressedNotification" object:sender];
 }
 
 - (IBAction)actionTakeawayButtonPressed:(UIButton *)sender {
+  [self createSubcategroryStringWithSubcategory:20];
+  [self configurateButtonsWithSubcategoryIds];
   [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTakeawayButtonPressedNotification" object:sender];
 }
 
@@ -373,6 +396,10 @@
     case 12: {
       break;
     }
+    case 19: {
+    }
+    case 20: {
+    }
       
     default:
       break;
@@ -390,6 +417,208 @@
   } else {
     self.fakeView.hidden = YES;
   }
+}
+
+- (void)createSubcategroryStringWithSubcategory:(NSInteger) subcategoryId {
+  
+  NSMutableArray *subcatArray = [NSMutableArray arrayWithArray:[self.subcategoryString componentsSeparatedByString:@","]];
+  NSString *subcatString = [NSString stringWithFormat:@"%ld", (long)subcategoryId];
+  
+  if (subcatArray.count == 1) {
+    if ([subcatArray.firstObject isEqual: @""]) {
+      [subcatArray removeObjectAtIndex:0];
+    }
+  }
+  
+  if ([subcatArray containsObject: subcatString]) {
+    [subcatArray removeObject:subcatString];
+  } else {
+    [subcatArray addObject:subcatString];
+  }
+  
+  subcatArray = (NSMutableArray *)[subcatArray sortedArrayUsingDescriptors:
+                                   @[[NSSortDescriptor sortDescriptorWithKey:@"intValue"
+                                                                   ascending:YES]]];
+  
+  NSString *resultString = @"";
+  
+  for (NSString *s in subcatArray) {
+    resultString = [resultString stringByAppendingString:[NSString stringWithFormat:@"%@,", s]];
+  }
+  
+  if (resultString.length > 1) {
+    resultString = [resultString stringByReplacingCharactersInRange:NSMakeRange(resultString.length - 1, 1) withString:@""];
+  } else {
+    resultString = nil;
+  }
+  
+  self.subcategoryString = resultString;
+  
+  NSLog(@"subcategoryString = %@", self.subcategoryString);
+  
+}
+
+- (void)configurateButtonsWithSubcategoryIds {
+  NSMutableArray *subcatArray = [NSMutableArray arrayWithArray:[self.subcategoryString componentsSeparatedByString:@","]];
+  
+  if (subcatArray.count == 1) {
+    if ([subcatArray.firstObject isEqual: @""]) {
+      [subcatArray removeObjectAtIndex:0];
+    }
+  }
+  
+  /*
+   //Cat = 1 Drinks
+   case Coffee = 1
+   case Hot = 2
+   case Ice = 3
+   case Carry = 4
+   //Cat = 2 Lounge
+   case Beer = 5
+   case Vine = 6
+   case Strong = 7
+   case Hookah = 8
+   //Cat = 3 Food
+   case Pizza = 9
+   case Rolls = 10
+   case Fastfood = 11
+   case Breakfast = 12
+   case Soup = 13
+   case HotFood = 14
+   case Vegan = 15
+   case Exotic = 16
+   case Dessert = 17
+   case Bakery = 18
+   case Delivery = 19
+   case CarryFood = 20
+   }
+   */
+  
+  if (self.filterTypeId == 1) {
+    if ([subcatArray containsObject:@"1"]) {
+      self.oneLineFilterView.buttonFirstIcon.tintColor = selectFilterColor;
+    } else {
+      self.oneLineFilterView.buttonFirstIcon.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"2"]) {
+      self.oneLineFilterView.buttonSecondIcon.tintColor = selectFilterColor;
+    } else {
+      self.oneLineFilterView.buttonSecondIcon.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"3"]) {
+      self.oneLineFilterView.buttonThirdIcon.tintColor = selectFilterColor;
+    } else {
+      self.oneLineFilterView.buttonThirdIcon.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"4"]) {
+      self.oneLineFilterView.buttonFourthIcon.tintColor = selectFilterColor;
+    } else {
+      self.oneLineFilterView.buttonFourthIcon.tintColor = [UIColor whiteColor];
+    }
+  } else if (self.filterTypeId == 2) {
+    if ([subcatArray containsObject:@"5"]) {
+      self.oneLineFilterView.buttonFirstIcon.tintColor = selectFilterColor;
+    } else {
+      self.oneLineFilterView.buttonFirstIcon.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"6"]) {
+      self.oneLineFilterView.buttonSecondIcon.tintColor = selectFilterColor;
+    } else {
+      self.oneLineFilterView.buttonSecondIcon.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"7"]) {
+      self.oneLineFilterView.buttonThirdIcon.tintColor = selectFilterColor;
+    } else {
+      self.oneLineFilterView.buttonThirdIcon.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"8"]) {
+      self.oneLineFilterView.buttonFourthIcon.tintColor = selectFilterColor;
+    } else {
+      self.oneLineFilterView.buttonFourthIcon.tintColor = [UIColor whiteColor];
+    }
+  } else if (self.filterTypeId == 3) {
+    if ([subcatArray containsObject:@"10"]) {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+      cell.buttonFilter.tintColor = selectFilterColor;
+    } else {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+      cell.buttonFilter.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"9"]) {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+      cell.buttonFilter.tintColor = selectFilterColor;
+    } else {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+      cell.buttonFilter.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"11"]) {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+      cell.buttonFilter.tintColor = selectFilterColor;
+    } else {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+      cell.buttonFilter.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"14"]) {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:3 inSection:0]];
+      cell.buttonFilter.tintColor = selectFilterColor;
+    } else {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:3 inSection:0]];
+      cell.buttonFilter.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"13"]) {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]];
+      cell.buttonFilter.tintColor = selectFilterColor;
+    } else {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]];
+      cell.buttonFilter.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"12"]) {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:5 inSection:0]];
+      cell.buttonFilter.tintColor = selectFilterColor;
+    } else {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:5 inSection:0]];
+      cell.buttonFilter.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"15"]) {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:6 inSection:0]];
+      cell.buttonFilter.tintColor = selectFilterColor;
+    } else {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:6 inSection:0]];
+      cell.buttonFilter.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"16"]) {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:7 inSection:0]];
+      cell.buttonFilter.tintColor = selectFilterColor;
+    } else {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:7 inSection:0]];
+      cell.buttonFilter.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"17"]) {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:8 inSection:0]];
+      cell.buttonFilter.tintColor = selectFilterColor;
+    } else {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:8 inSection:0]];
+      cell.buttonFilter.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"18"]) {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:9 inSection:0]];
+      cell.buttonFilter.tintColor = selectFilterColor;
+    } else {
+      FilterCollectionViewCell *cell = (FilterCollectionViewCell *)[self.twoLineFilterView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:9 inSection:0]];
+      cell.buttonFilter.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"19"]) {
+      self.twoLineFilterView.buttonDelivery.tintColor = selectFilterColor;
+    } else {
+      self.twoLineFilterView.buttonDelivery.tintColor = [UIColor whiteColor];
+    }
+    if ([subcatArray containsObject:@"20"]) {
+      self.twoLineFilterView.buttonTakeaway.tintColor = selectFilterColor;
+    } else {
+      self.twoLineFilterView.buttonTakeaway.tintColor = [UIColor whiteColor];
+    }
+  }
+  
 }
 
 #pragma mark - LoaderView Func

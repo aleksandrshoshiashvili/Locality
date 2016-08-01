@@ -274,49 +274,63 @@
   NSLog(@"actionDeliver");
 //  UIButton *button = notif.object;
   
-  [self createSubcategroryStringWithSubcategory:19];
+//  [self createSubcategroryStringWithSubcategory:19];
   
 //  if (button.tintColor == [UIColor whiteColor]) {
 //    button.tintColor = selectFilterColor;
 //  } else {
 //    button.tintColor = [UIColor whiteColor];
 //  }
+  if (self.subcategoryString != nil) {
+    [self getCompaniesBySubcategory:self.subcategoryString];
+  } else {
+    [self getCompaniesByLocation];
+  }
 }
 
 - (void)actionTakeaway:(NSNotification *)notif {
   NSLog(@"actionTakeaway");
 //  UIButton *button = notif.object;
   
-  [self createSubcategroryStringWithSubcategory:20];
+//  [self createSubcategroryStringWithSubcategory:20];
   
 //  if (button.tintColor == [UIColor whiteColor]) {
 //    button.tintColor = selectFilterColor;
 //  } else {
 //    button.tintColor = [UIColor whiteColor];
 //  }
+  if (self.subcategoryString != nil) {
+    [self getCompaniesBySubcategory:self.subcategoryString];
+  } else {
+    [self getCompaniesByLocation];
+  }
 }
 
 - (void) actionChooseSelectedFilterInOneLineView:(NSNotification *)notif {
   NSInteger tagId = [notif.object tag];
   NSLog(@"actionChooseSelectedFilterInOneLineView");
-//  UIButton *button = notif.object;
+  UIButton *button = notif.object;
   
   if (self.filterTypeId == 1) {
     switch (tagId) {
       case 1: {
         [self createSubcategroryStringWithSubcategory:1];
+        [self changeButtonColorWithSubcategoryId:1 button:button];
         break;
       }
       case 2: {
         [self createSubcategroryStringWithSubcategory:2];
+        [self changeButtonColorWithSubcategoryId:2 button:button];
         break;
       }
       case 3: {
         [self createSubcategroryStringWithSubcategory:3];
+        [self changeButtonColorWithSubcategoryId:3 button:button];
         break;
       }
       case 4: {
         [self createSubcategroryStringWithSubcategory:4];
+        [self changeButtonColorWithSubcategoryId:4 button:button];
         break;
       }
         
@@ -327,18 +341,22 @@
     switch (tagId) {
       case 1: {
         [self createSubcategroryStringWithSubcategory:5];
+        [self changeButtonColorWithSubcategoryId:5 button:button];
         break;
       }
       case 2: {
         [self createSubcategroryStringWithSubcategory:6];
+        [self changeButtonColorWithSubcategoryId:6 button:button];
         break;
       }
       case 3: {
         [self createSubcategroryStringWithSubcategory:7];
+        [self changeButtonColorWithSubcategoryId:7 button:button];
         break;
       }
       case 4: {
         [self createSubcategroryStringWithSubcategory:8];
+        [self changeButtonColorWithSubcategoryId:8 button:button];
         break;
       }
         
@@ -365,7 +383,7 @@
   NSInteger tagId = [notif.object tag];
   NSLog(@"actionSelectedFilterButtonPressed");
   
-//  UIButton *button = notif.object;
+  UIButton *button = notif.object;
   
   /*
    //Cat = 1 Drinks
@@ -397,42 +415,52 @@
   switch (tagId) {
     case 1: {
       [self createSubcategroryStringWithSubcategory:10];
+      [self changeButtonColorWithSubcategoryId:10 button:button];
       break;
     }
     case 2: {
       [self createSubcategroryStringWithSubcategory:9];
+      [self changeButtonColorWithSubcategoryId:9 button:button];
       break;
     }
     case 3: {
       [self createSubcategroryStringWithSubcategory:11];
+      [self changeButtonColorWithSubcategoryId:11 button:button];
       break;
     }
     case 4: {
       [self createSubcategroryStringWithSubcategory:14];
+      [self changeButtonColorWithSubcategoryId:14 button:button];
       break;
     }
     case 5: {
       [self createSubcategroryStringWithSubcategory:13];
+      [self changeButtonColorWithSubcategoryId:13 button:button];
       break;
     }
     case 6: {
       [self createSubcategroryStringWithSubcategory:12];
+      [self changeButtonColorWithSubcategoryId:12 button:button];
       break;
     }
     case 7: {
       [self createSubcategroryStringWithSubcategory:15];
+      [self changeButtonColorWithSubcategoryId:15 button:button];
       break;
     }
     case 8: {
       [self createSubcategroryStringWithSubcategory:16];
+      [self changeButtonColorWithSubcategoryId:16 button:button];
       break;
     }
     case 9: {
       [self createSubcategroryStringWithSubcategory:17];
+      [self changeButtonColorWithSubcategoryId:17 button:button];
       break;
     }
     case 10: {
       [self createSubcategroryStringWithSubcategory:18];
+      [self changeButtonColorWithSubcategoryId:18 button:button];
       break;
     }
     case 11: {
@@ -457,6 +485,7 @@
 //  } else {
 //    button.tintColor = [UIColor whiteColor];
 //  }
+  
   
 }
 
@@ -497,6 +526,28 @@
   
   NSLog(@"subcategoryString = %@", self.subcategoryString);
   
+}
+
+- (BOOL)subcategoryContaintSubcategory:(NSInteger) subcategoryId {
+  NSMutableArray *subcatArray = [NSMutableArray arrayWithArray:[self.subcategoryString componentsSeparatedByString:@","]];
+  NSString *subcatString = [NSString stringWithFormat:@"%ld", (long)subcategoryId];
+  
+  if (subcatArray.count == 1) {
+    if ([subcatArray.firstObject isEqual: @""]) {
+      [subcatArray removeObjectAtIndex:0];
+    }
+  }
+  
+  return [subcatArray containsObject:subcatString];
+  
+}
+
+- (void)changeButtonColorWithSubcategoryId:(NSInteger) subcategoryId button:(UIButton *)button {
+  if ([self subcategoryContaintSubcategory:subcategoryId]) {
+    button.tintColor = selectFilterColor;
+  } else {
+    button.tintColor = [UIColor whiteColor];
+  }
 }
 
 #pragma mark - Segue

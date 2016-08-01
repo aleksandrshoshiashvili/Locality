@@ -30,5 +30,7 @@
 @protocol TwoLineFilterViewDelegate
 @required
 - (void)actionFilterButtonPressed:(UIButton *)sender;
+@optional
+- (void)collectionViewDidScroll;
 
 @end

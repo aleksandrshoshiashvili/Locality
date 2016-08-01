@@ -21,7 +21,7 @@
 #pragma mark - Colors
 
 #define appMainColor RGBA(70.0, 62.0, 72.0, 1.0)
-#define selectFilterColor RGBA(0.0f, 103.0f, 126.0f, 1.0)
+#define selectFilterColor RGBA(17.0f, 140.0f, 220.0f, 1.0)
 //#define selectFilterColor RGBA(195.0f, 65.0f, 47.0f, 1.0)
 #define redDotColor RGBA(194.0f, 84.0f, 81.0f, 1.0)
 #define greenDotColor RGBA(73.0f, 165.0f, 141.0f, 1.0)

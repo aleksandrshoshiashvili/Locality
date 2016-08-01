@@ -11,6 +11,8 @@
 
 @interface SquareCashStyleBar : BLKFlexibleHeightBar
 
+@property (strong, nonatomic) UIImageView *placeImageView;
+
 - (id)initWithFrame:(CGRect)frame
           placeName:(NSString *)placeName
            features:(NSArray *)featuresImagesArray

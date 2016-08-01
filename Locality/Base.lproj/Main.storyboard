@@ -256,7 +256,7 @@
             </objects>
             <point key="canvasLocation" x="592" y="31"/>
         </scene>
-        <!--Locality-->
+        <!--Points-->
         <scene sceneID="0Xc-wC-Mre">
             <objects>
                 <viewController storyboardIdentifier="ListViewController" id="Jzf-vR-wdF" customClass="ListViewController" sceneMemberID="viewController">
@@ -279,11 +279,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="328" height="112"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hKH-SF-jXO">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hKH-SF-jXO">
                                                     <rect key="frame" x="0.0" y="0.0" width="328" height="109"/>
                                                 </imageView>
-                                                <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ybI-uo-QpN">
-                                                    <rect key="frame" x="0.0" y="0.0" width="328" height="109"/>
+                                                <view alpha="0.40000000000000002" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="ybI-uo-QpN">
+                                                    <rect key="frame" x="0.0" y="0.0" width="328" height="112"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem Ipsum" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HoV-VM-jeU">
@@ -328,9 +328,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100 м" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6gH-c3-ib9">
-                                                    <rect key="frame" x="245" y="91" width="50" height="14"/>
+                                                    <rect key="frame" x="245" y="91" width="75" height="14"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="dEc-rf-Kbp"/>
+                                                        <constraint firstAttribute="width" constant="75" id="dEc-rf-Kbp"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -348,11 +348,11 @@
                                                 <constraint firstItem="ybI-uo-QpN" firstAttribute="top" secondItem="qiE-NC-ZrK" secondAttribute="top" id="7DN-Rq-CBb"/>
                                                 <constraint firstItem="8Vc-hN-X11" firstAttribute="leading" secondItem="a4L-eQ-xuA" secondAttribute="trailing" constant="12" id="7VN-8j-G4w"/>
                                                 <constraint firstItem="hKH-SF-jXO" firstAttribute="leading" secondItem="qiE-NC-ZrK" secondAttribute="leading" id="8Df-eT-oKB"/>
-                                                <constraint firstItem="ybI-uo-QpN" firstAttribute="bottom" secondItem="hKH-SF-jXO" secondAttribute="bottom" id="8zE-cY-5ns"/>
+                                                <constraint firstItem="ybI-uo-QpN" firstAttribute="bottom" secondItem="hKH-SF-jXO" secondAttribute="bottom" constant="3" id="8zE-cY-5ns"/>
                                                 <constraint firstItem="dHs-eF-UZe" firstAttribute="top" secondItem="8Vc-hN-X11" secondAttribute="bottom" constant="21" id="9Pf-P4-4XT"/>
                                                 <constraint firstItem="HoV-VM-jeU" firstAttribute="leading" secondItem="a4L-eQ-xuA" secondAttribute="leading" id="AGO-Nv-WFb"/>
                                                 <constraint firstItem="8Vc-hN-X11" firstAttribute="trailing" secondItem="HoV-VM-jeU" secondAttribute="trailing" id="AKv-yZ-2eA"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="6gH-c3-ib9" secondAttribute="trailing" constant="25" id="GTS-UB-8cc"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="6gH-c3-ib9" secondAttribute="trailing" id="GTS-UB-8cc"/>
                                                 <constraint firstItem="hKH-SF-jXO" firstAttribute="leading" secondItem="qiE-NC-ZrK" secondAttribute="leadingMargin" constant="-8" id="Lpe-nS-Axd"/>
                                                 <constraint firstItem="6gH-c3-ib9" firstAttribute="leading" secondItem="dHs-eF-UZe" secondAttribute="trailing" constant="8" symbolic="YES" id="MDA-0R-nkO"/>
                                                 <constraint firstItem="HoV-VM-jeU" firstAttribute="top" secondItem="qiE-NC-ZrK" secondAttribute="topMargin" constant="5" id="MMG-5C-aLq"/>
@@ -450,14 +450,9 @@
                             <constraint firstItem="mof-t0-wWe" firstAttribute="top" secondItem="ZA8-dd-GSA" secondAttribute="topMargin" id="dp4-V3-BOg"/>
                             <constraint firstItem="Qgp-eq-AVC" firstAttribute="centerX" secondItem="mof-t0-wWe" secondAttribute="centerX" id="nOq-vE-gYY"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="Qgp-eq-AVC"/>
-                            </mask>
-                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Список" image="list512.png" id="fx7-II-BnX"/>
-                    <navigationItem key="navigationItem" title="Locality" id="DcC-fg-pFw"/>
+                    <navigationItem key="navigationItem" title="Points" id="DcC-fg-pFw"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="errorView" destination="Qgp-eq-AVC" id="nl4-W6-68c"/>
