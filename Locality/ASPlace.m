@@ -116,4 +116,40 @@
   }
 }
 
+-(void)encodeWithCoder:(NSCoder *)encoder
+{
+  //Encode the properties of the object
+  [encoder encodeObject:self.name forKey:@"name"];
+  [encoder encodeObject:self.uid forKey:@"id"];
+  [encoder encodeObject:self.accountId forKey:@"account_id"];
+  [encoder encodeObject:self.descr forKey:@"description"];
+  [encoder encodeObject:self.cityId forKey:@"city_id"];
+  [encoder encodeObject:self.address forKey:@"address"];
+  [encoder encodeObject:self.photosString forKey:@"photos"];
+  [encoder encodeObject:self.sharesString forKey:@"shares"];
+  [encoder encodeObject:self.distance forKey:@"distance"];
+  
+}
+
+-(id)initWithCoder:(NSCoder *)decoder
+{
+  self = [super init];
+  if ( self != nil )
+  {
+    //decode the properties
+    self.name = [decoder decodeObjectForKey:@"name"];
+    self.uid = [decoder decodeObjectForKey:@"id"];
+    self.accountId = [decoder decodeObjectForKey:@"account_id"];
+    self.descr = [decoder decodeObjectForKey:@"description"];
+    self.cityId = [decoder decodeObjectForKey:@"city_id"];
+    self.address = [decoder decodeObjectForKey:@"address"];
+    self.photosString = [decoder decodeObjectForKey:@"photos"];
+    self.sharesString = [decoder decodeObjectForKey:@"shares"];
+    self.distance = [decoder decodeObjectForKey:@"distance"];
+    
+  }
+  return self;
+}
+
+
 @end

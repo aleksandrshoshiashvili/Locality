@@ -19,6 +19,8 @@
 #import "ASPlace.h"
 #import "ASDiscount.h"
 
+#import "Reachability.h"
+
 @interface MapViewController () <GMSMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *viewForMap;
@@ -37,6 +39,9 @@
 
 @property (strong, nonatomic) NSMutableArray *markersArray;
 
+@property (nonatomic) Reachability *hostReachability;
+@property (nonatomic) Reachability *internetReachability;
+
 @end
 
 @implementation MapViewController
@@ -51,13 +56,27 @@
   
   self.markersArray = [NSMutableArray array];
   
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    [self getCompaniesByLocation];
-  });
-  
+//  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//    [self getCompaniesByLocation];
+//  });
+//  
   _viewForMap.backgroundColor = appMainColor;
   [self.view insertSubview:(UIView *)self.twoLineFilterView aboveSubview:_mapView];
   [self.view insertSubview:self.errorView aboveSubview:_mapView];
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+  
+  //Change the host name here to change the server you want to monitor.
+  NSString *remoteHostName = @"www.apple.com";
+  
+  self.hostReachability = [Reachability reachabilityWithHostName:remoteHostName];
+  [self.hostReachability startNotifier];
+  [self updateInterfaceWithReachability:self.hostReachability];
+  
+  self.internetReachability = [Reachability reachabilityForInternetConnection];
+  [self.internetReachability startNotifier];
+  [self updateInterfaceWithReachability:self.internetReachability];
+  
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,6 +111,39 @@
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionResetFilters) name:@"actionResetFiltersNotification" object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionDelivery:) name:@"actionDeliverButtonPressedNotification" object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionTakeaway:) name:@"actionTakeawayButtonPressedNotification" object:nil];
+}
+
+/*!
+ * Called by Reachability whenever status changes.
+ */
+- (void) reachabilityChanged:(NSNotification *)note {
+  Reachability *curReach = [note object];
+  NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
+  [self updateInterfaceWithReachability:curReach];
+}
+
+
+- (void)updateInterfaceWithReachability:(Reachability *)reachability {
+  if (reachability == self.hostReachability) {
+    NetworkStatus netStatus = [reachability currentReachabilityStatus];
+    //    BOOL connectionRequired = [reachability connectionRequired];
+    switch (netStatus) {
+      case 0: {
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSData *myEncodedObject = [prefs objectForKey: kPlacesArray];
+        self.placesArray = (NSArray *)[NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
+        self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
+        break;
+      }
+      default: {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+          [self getCompaniesByLocation];
+        });
+        break;
+      }
+    }
+  }
+  
 }
 
 #pragma mark - Map
@@ -154,6 +206,11 @@
     self.filterArray = [NSMutableArray arrayWithArray:self.placesArray];
     self.errorView.hidden = YES;
     [self createPins];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSData *myEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:self.placesArray];
+    [prefs setObject:myEncodedObject forKey:kPlacesArray];
+    
     [self stopLoader];
   } onFailure:^(NSError *error, NSInteger statusCode) {
     if (statusCode == 200 || error.localizedDescription == nil) {

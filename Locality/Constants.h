@@ -13,6 +13,7 @@
 #pragma mark - NSUserDefaults Keys
 
 #define kCityKey @"CityKey"
+#define kPlacesArray @"kPlacesArray"
 
 #pragma mark - Notifications Keys
 

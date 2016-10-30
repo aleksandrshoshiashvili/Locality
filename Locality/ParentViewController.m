@@ -15,6 +15,8 @@
 @interface ParentViewController () <TwoLineFilterViewDelegate>
 
 @property (strong, nonatomic) UIView *fakeView;
+@property (assign, nonatomic) BOOL isLoaderShowed;
+
 
 @end
 
@@ -27,6 +29,8 @@
   [self configurateNavigationController];
   [self configurateOneLineFilterView];
   [self configurateTwoLineFilterView];
+  
+  self.isLoaderShowed = false;
   
   UIView *bottomStatusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, statusBarHeight)];
   bottomStatusBarView.backgroundColor = appMainColor;
@@ -630,13 +634,18 @@
 }
 
 - (void)startLoader {
-  [self createAndConfigurateLoader];
-  [self.loader showLoader];
-  [self.view setUserInteractionEnabled:NO];
+  
+  if (!self.isLoaderShowed) {
+    self.isLoaderShowed = true;
+    [self createAndConfigurateLoader];
+    [self.loader showLoader];
+    [self.view setUserInteractionEnabled:NO];
+  }
 }
 
 - (void)stopLoader {
   [self.loader removeLoader];
+  self.isLoaderShowed = false;
   [self.view setUserInteractionEnabled:YES];
 }
 
